@@ -1,0 +1,21 @@
+{
+  "name": "projet_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "allo.js",
+  "dependencies": {
+    "@types/createjs": "0.0.29",
+    "@types/createjs-lib": "0.0.29",
+    "@types/easeljs": "^1.0.0",
+    "@types/preloadjs": "^0.6.32",
+    "@types/soundjs": "^0.6.27",
+    "@types/tweenjs": "^0.6.27",
+    "requirejs": "^2.3.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
