@@ -65,6 +65,23 @@ p.nominalBounds = rect = new cjs.Rectangle(0,0,305.4,314.2);
 p.frameBounds = [rect];
 
 
+(lib.clipAssiette = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// assiette
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#000000").ss(1,1,1).p("AJpAAQAABoi0BJQi1BJkAAAQj/AAi0hJQi1hJAAhoQAAhmC1hKQC0hJD/AAQEAAAC1BJQC0BKAABmg");
+	this.shape.setTransform(-0.3,-25.9);
+
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#996600").s().p("AmzCxQi1hKAAhnQAAhnC1hJQC1hJD+AAQEAAAC1BJQC0BJAABnQAABni0BKQi1BJkAAAQj+AAi1hJg");
+	this.shape_1.setTransform(-0.3,-25.9);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.clipAssiette, rect = new cjs.Rectangle(-63,-51.9,125.4,52), [rect]);
+
+
 (lib.clipTimmy = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
