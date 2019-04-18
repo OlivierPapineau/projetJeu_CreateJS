@@ -3,12 +3,13 @@ import {ObjVisible} from './ObjVisible';
 
 export abstract class ObjMobile extends ObjVisible {
 
-  private static vitesse = 5;
+  private vitesse = null;
   private sens = -1;
   private avancer_lier = this.avancer.bind(this);
 
-  public constructor(refScene:createjs.Stage, posX:number, posY:number) {
+  public constructor(refScene:createjs.Stage, posX:number, posY:number, vitesse:number) {
     super(refScene, posX, posY);
+    this.vitesse = vitesse;
 
     this.addEventListener('tick', this.avancer_lier);
   }
@@ -20,7 +21,7 @@ export abstract class ObjMobile extends ObjVisible {
         this.y = Math.floor(Math.random() * 600);
     }
 
-    this.x += this.sens * ObjMobile.vitesse;
+    this.x += this.sens * this.vitesse;
   }
 
   protected abstract gererFinScene():void;

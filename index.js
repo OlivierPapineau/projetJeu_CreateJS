@@ -65,6 +65,23 @@ p.nominalBounds = rect = new cjs.Rectangle(0,0,305.4,314.2);
 p.frameBounds = [rect];
 
 
+(lib.clipCuillere = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// Layer_1
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f().s("#000000").ss(1,1,1).p("Aj5j5IHzAAIAAHzInzAAg");
+	this.shape.setTransform(-1,-24.9);
+
+	this.shape_1 = new cjs.Shape();
+	this.shape_1.graphics.f("#999999").s().p("Aj5D6IAAnzIHzAAIAAHzg");
+	this.shape_1.setTransform(-1,-24.9);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
+
+}).prototype = getMCSymbolPrototype(lib.clipCuillere, rect = new cjs.Rectangle(-27,-50.9,52,52), [rect]);
+
+
 (lib.clipAssiette = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
@@ -115,7 +132,7 @@ lib.properties = {
 	id: 'B851D4F25CD945D7AE2D7497DD2C6ED3',
 	width: 800,
 	height: 600,
-	fps: 24,
+	fps: 30,
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [],

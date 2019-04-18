@@ -20,7 +20,7 @@ export class Protagoniste extends ObjVisible {
     //tCuilleres
     this.addEventListener('tick', this.perdreVie_lier);
 
-    for(let intCpt:number = 0; intCpt <= 4; intCpt++) {
+    for(let intCpt:number = 0; intCpt <= 3; intCpt++) {
       this.tTouches[intCpt] = false;
     }
   }
@@ -31,7 +31,9 @@ export class Protagoniste extends ObjVisible {
   }
 
   private gererToucheDown(e:KeyboardEvent):void {
-    this.refMinuterie = window.setInterval(this.faireBougerProtago.bind(this), 30);
+    if(this.refMinuterie === null) {
+      this.refMinuterie = window.setInterval(this.faireBougerProtago.bind(this), 35);
+    }
 
     switch(e.keyCode) {
       case 37 :
@@ -51,8 +53,8 @@ export class Protagoniste extends ObjVisible {
         e.preventDefault();
         break;
       case 32 :
-        this.tTouches[4] = true;
-        e.preventDefault();
+        //Creation d'un nouveau projectile
+        this.tirerProjectile();
         break;
     }
   }
@@ -76,10 +78,10 @@ export class Protagoniste extends ObjVisible {
         this.tTouches[3] = false;
         e.preventDefault();
         break;
-      case 32 :
-        this.tTouches[4] = false;
-        e.preventDefault();
-        break;
+      // case 32 :
+      //   this.tTouches[4] = false;
+      //   e.preventDefault();
+      //   break;
     }
 
     if(e.keyCode == null) {
@@ -90,31 +92,30 @@ export class Protagoniste extends ObjVisible {
 
   private faireBougerProtago():void {
     if(this.tTouches[0] == true) {
-        this.x = this.x - 0.5;
+        this.x = this.x - 4;
     }
 
     if(this.tTouches[1] == true){
-        this.y = this.y - 0.5;
+        this.y = this.y - 4;
     }
 
     //flèche droite
     if(this.tTouches[2] == true){
-        this.x = this.x + 0.5;
+        this.x = this.x + 4;
     }
 
     //flèche bas
     if(this.tTouches[3] == true){
-        this.y = this.y + 0.5;
-    }
-
-    //Barre espace
-    if(this.tTouches[4] == true) {
-      console.log('nouveau projectile');
+        this.y = this.y + 4;
     }
   }
 
   public perdreVie() {
-    
+
+  }
+
+  private tirerProjectile() {
+    console.log('Nouveau projectile');
   }
 
 }

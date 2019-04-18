@@ -14,20 +14,27 @@ var __extends = (this && this.__extends) || (function () {
 define(["require", "exports", "./ObjMobile"], function (require, exports, ObjMobile_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Assiette = /** @class */ (function (_super) {
-        __extends(Assiette, _super);
-        function Assiette(refScene, posX, posY, vitesse) {
+    var Cuillere = /** @class */ (function (_super) {
+        __extends(Cuillere, _super);
+        function Cuillere(refScene, posX, posY, vitesse) {
             return _super.call(this, refScene, posX, posY, vitesse) || this;
         }
-        Assiette.prototype.dessiner = function () {
-            window.lib.clipAssiette.call(this);
-            this.frameBounds = window.lib.clipAssiette.prototype.framebounds;
+        Cuillere.prototype.dessiner = function () {
+            window.lib.clipCuillere.call(this);
+            this.frameBounds = window.lib.clipCuillere.prototype.framebounds;
         };
-        Assiette.prototype.gererFinScene = function () {
+        Cuillere.prototype.gererFinScene = function () {
             //super.arreter();
         };
-        return Assiette;
+        /**
+        *
+        * METHODE SPECIFIQUES A L'ANTAGONISTE
+        *
+        */
+        Cuillere.prototype.attaquer = function () {
+        };
+        return Cuillere;
     }(ObjMobile_1.ObjMobile));
-    exports.Assiette = Assiette;
+    exports.Cuillere = Cuillere;
 });
-//# sourceMappingURL=Assiette.js.map
+//# sourceMappingURL=Cuillere.js.map

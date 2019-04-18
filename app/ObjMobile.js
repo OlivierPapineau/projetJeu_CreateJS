@@ -16,10 +16,12 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
     Object.defineProperty(exports, "__esModule", { value: true });
     var ObjMobile = /** @class */ (function (_super) {
         __extends(ObjMobile, _super);
-        function ObjMobile(refScene, posX, posY) {
+        function ObjMobile(refScene, posX, posY, vitesse) {
             var _this = _super.call(this, refScene, posX, posY) || this;
+            _this.vitesse = null;
             _this.sens = -1;
             _this.avancer_lier = _this.avancer.bind(_this);
+            _this.vitesse = vitesse;
             _this.addEventListener('tick', _this.avancer_lier);
             return _this;
         }
@@ -28,9 +30,8 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
                 this.x = 800;
                 this.y = Math.floor(Math.random() * 600);
             }
-            this.x += this.sens * ObjMobile.vitesse;
+            this.x += this.sens * this.vitesse;
         };
-        ObjMobile.vitesse = 5;
         return ObjMobile;
     }(ObjVisible_1.ObjVisible));
     exports.ObjMobile = ObjMobile;

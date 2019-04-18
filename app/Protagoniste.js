@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -32,7 +32,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             //tAssiettes
             //tCuilleres
             _this.addEventListener('tick', _this.perdreVie_lier);
-            for (var intCpt = 0; intCpt <= 4; intCpt++) {
+            for (var intCpt = 0; intCpt <= 3; intCpt++) {
                 _this.tTouches[intCpt] = false;
             }
             return _this;
@@ -42,7 +42,9 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             this.frameBounds = window.lib.clipTimmy.prototype.frameBounds;
         };
         Protagoniste.prototype.gererToucheDown = function (e) {
-            this.refMinuterie = window.setInterval(this.faireBougerProtago.bind(this), 30);
+            if (this.refMinuterie === null) {
+                this.refMinuterie = window.setInterval(this.faireBougerProtago.bind(this), 35);
+            }
             switch (e.keyCode) {
                 case 37:
                     this.tTouches[0] = true;
@@ -61,8 +63,8 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
                     e.preventDefault();
                     break;
                 case 32:
-                    this.tTouches[4] = true;
-                    e.preventDefault();
+                    //Creation d'un nouveau projectile
+                    this.tirerProjectile();
                     break;
             }
         };
@@ -84,10 +86,10 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
                     this.tTouches[3] = false;
                     e.preventDefault();
                     break;
-                case 32:
-                    this.tTouches[4] = false;
-                    e.preventDefault();
-                    break;
+                // case 32 :
+                //   this.tTouches[4] = false;
+                //   e.preventDefault();
+                //   break;
             }
             if (e.keyCode == null) {
                 window.clearInterval(this.refMinuterie);
@@ -96,25 +98,24 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         };
         Protagoniste.prototype.faireBougerProtago = function () {
             if (this.tTouches[0] == true) {
-                this.x = this.x - 0.5;
+                this.x = this.x - 4;
             }
             if (this.tTouches[1] == true) {
-                this.y = this.y - 0.5;
+                this.y = this.y - 4;
             }
             //flèche droite
             if (this.tTouches[2] == true) {
-                this.x = this.x + 0.5;
+                this.x = this.x + 4;
             }
             //flèche bas
             if (this.tTouches[3] == true) {
-                this.y = this.y + 0.5;
-            }
-            //Barre espace
-            if (this.tTouches[4] == true) {
-                console.log('nouveau projectile');
+                this.y = this.y + 4;
             }
         };
         Protagoniste.prototype.perdreVie = function () {
+        };
+        Protagoniste.prototype.tirerProjectile = function () {
+            console.log('Nouveau projectile');
         };
         return Protagoniste;
     }(ObjVisible_1.ObjVisible));
