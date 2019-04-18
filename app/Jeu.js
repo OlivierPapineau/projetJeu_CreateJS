@@ -35,10 +35,10 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere"], fun
             }
         };
         Jeu.prototype.creerProtagoniste = function () {
-            this.protagoniste = new Protagoniste_1.Protagoniste(this.refScene, 125, 125);
+            this.protagoniste = new Protagoniste_1.Protagoniste(this.refScene, 125, 400);
         };
         Jeu.prototype.creerAssiette = function () {
-            var yHasard = Math.floor(Math.random() * 600);
+            var yHasard = Math.floor(Math.random() * 600) + 300;
             //Gestion de la generation d'obstacles
             if (this.tAssiettes.length == this.nbAssiettes - 1) {
                 console.log('nombre maximal atteint');
@@ -49,7 +49,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere"], fun
             console.log("Tableau d'assiettes: " + this.tAssiettes);
         };
         Jeu.prototype.creerCuillere = function () {
-            var yHasard = Math.floor(Math.random() * 600);
+            var yHasard = Math.floor(Math.random() * 600) + 300;
             //Gestion de la generation d'antagonistes
             if (this.tCuilleres.length == this.nbCuilleres - 1) {
                 console.log('nombre maximal de cuilleres atteint');

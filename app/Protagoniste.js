@@ -98,24 +98,38 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         };
         Protagoniste.prototype.faireBougerProtago = function () {
             if (this.tTouches[0] == true) {
-                this.x = this.x - 4;
+                if (this.x >= Protagoniste.tLimitesDeplacements.gauche) {
+                    this.x = this.x - 4;
+                }
             }
             if (this.tTouches[1] == true) {
-                this.y = this.y - 4;
+                if (this.y >= Protagoniste.tLimitesDeplacements.haut) {
+                    this.y = this.y - 4;
+                }
             }
             //flèche droite
             if (this.tTouches[2] == true) {
-                this.x = this.x + 4;
+                if (this.x <= Protagoniste.tLimitesDeplacements.droite) {
+                    this.x = this.x + 4;
+                }
             }
             //flèche bas
             if (this.tTouches[3] == true) {
-                this.y = this.y + 4;
+                if (this.y <= Protagoniste.tLimitesDeplacements.bas) {
+                    this.y = this.y + 4;
+                }
             }
         };
         Protagoniste.prototype.perdreVie = function () {
         };
         Protagoniste.prototype.tirerProjectile = function () {
             console.log('Nouveau projectile');
+        };
+        Protagoniste.tLimitesDeplacements = {
+            haut: 300,
+            bas: 600,
+            gauche: 0,
+            droite: 800
         };
         return Protagoniste;
     }(ObjVisible_1.ObjVisible));

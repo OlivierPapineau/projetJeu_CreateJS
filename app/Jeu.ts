@@ -49,12 +49,12 @@ export class Jeu {
 
 
    public creerProtagoniste():void {
-     this.protagoniste = new Protagoniste(this.refScene, 125, 125);
+     this.protagoniste = new Protagoniste(this.refScene, 125, 400);
    }
 
    public creerAssiette():void {
 
-     let yHasard:number = Math.floor(Math.random() * 600);
+     let yHasard:number = Math.floor(Math.random() * 600) + 300;
 
      //Gestion de la generation d'obstacles
      if(this.tAssiettes.length == this.nbAssiettes-1) {
@@ -70,7 +70,7 @@ export class Jeu {
 
    public creerCuillere():void {
 
-     let yHasard:number = Math.floor(Math.random() * 600);
+     let yHasard:number = Math.floor(Math.random() * 600) + 300;
 
      //Gestion de la generation d'antagonistes
      if(this.tCuilleres.length == this.nbCuilleres-1) {

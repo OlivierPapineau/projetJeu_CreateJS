@@ -7,6 +7,12 @@ export class Protagoniste extends ObjVisible {
   private perdreVie_lier = this.perdreVie.bind(this);
   private refMinuterie:number = null;
   private tTouches:Array<boolean> = null;
+  private static tLimitesDeplacements:any = {
+    haut: 300,
+    bas: 600,
+    gauche: 0,
+    droite: 800
+  };
   //private tAssiettes = null;
   //private tCuilleres = null;
   //private refVies = null;
@@ -92,21 +98,29 @@ export class Protagoniste extends ObjVisible {
 
   private faireBougerProtago():void {
     if(this.tTouches[0] == true) {
+      if(this.x >= Protagoniste.tLimitesDeplacements.gauche) {
         this.x = this.x - 4;
+      }
     }
 
     if(this.tTouches[1] == true){
+      if(this.y >= Protagoniste.tLimitesDeplacements.haut) {
         this.y = this.y - 4;
+      }
     }
 
     //flèche droite
     if(this.tTouches[2] == true){
+      if(this.x <= Protagoniste.tLimitesDeplacements.droite) {
         this.x = this.x + 4;
+      }
     }
 
     //flèche bas
     if(this.tTouches[3] == true){
+      if(this.y <= Protagoniste.tLimitesDeplacements.bas) {
         this.y = this.y + 4;
+      }
     }
   }
 
