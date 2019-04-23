@@ -40,6 +40,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         Protagoniste.prototype.dessiner = function () {
             window.lib.clipTimmy.call(this);
             this.frameBounds = window.lib.clipTimmy.prototype.frameBounds;
+            console.log('hamburger dessiner');
         };
         Protagoniste.prototype.gererToucheDown = function (e) {
             if (this.refMinuterie === null) {

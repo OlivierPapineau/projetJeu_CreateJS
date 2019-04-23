@@ -34,6 +34,7 @@ export class Protagoniste extends ObjVisible {
   protected dessiner():void {
     window.lib.clipTimmy.call(this);
     this.frameBounds = window.lib.clipTimmy.prototype.frameBounds;
+    console.log('hamburger dessiner');
   }
 
   private gererToucheDown(e:KeyboardEvent):void {
