@@ -1,7 +1,7 @@
 import {ObjMobile} from './ObjMobile';
+import {Protagoniste} from './Protagoniste';
 
 export class Cuillere extends ObjMobile {
-
   public constructor(refScene:createjs.Stage, posX:number, posY:number, vitesse:number) {
     super(refScene, posX, posY, vitesse);
   }
@@ -17,11 +17,7 @@ export class Cuillere extends ObjMobile {
 
   /**
   *
-  * METHODE SPECIFIQUES A L'ANTAGONISTE
+  * METHODES SPECIFIQUES A L'ANTAGONISTE
   *
   */
-
-  private attaquer():void {
-
-  }
 }

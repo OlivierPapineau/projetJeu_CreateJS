@@ -35,7 +35,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere"], fun
             }
         };
         Jeu.prototype.creerProtagoniste = function () {
-            this.protagoniste = new Protagoniste_1.Protagoniste(this.refScene, 125, 400);
+            this.protagoniste = new Protagoniste_1.Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes);
         };
         Jeu.prototype.creerAssiette = function () {
             var yHasard = Math.floor(Math.random() * 600) + 300;
@@ -46,7 +46,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere"], fun
             }
             //Instanciation de l'objet
             this.tAssiettes.push(new Assiette_1.Assiette(this.refScene, 800, yHasard, 2));
-            console.log("Tableau d'assiettes: " + this.tAssiettes);
+            //console.log(`Tableau d'assiettes: ${this.tAssiettes}`);
         };
         Jeu.prototype.creerCuillere = function () {
             var yHasard = Math.floor(Math.random() * 600) + 300;
@@ -57,7 +57,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere"], fun
             }
             //Instanciation de l'objet
             this.tCuilleres.push(new Cuillere_1.Cuillere(this.refScene, 800, yHasard, 4));
-            console.log("Tableau de cuilleres: " + this.tCuilleres);
+            //console.log(`Tableau de cuilleres: ${this.tCuilleres}`);
         };
         //En construction...
         Jeu.prototype.arreter = function () {

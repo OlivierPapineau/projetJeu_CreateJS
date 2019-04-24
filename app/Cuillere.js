@@ -26,13 +26,6 @@ define(["require", "exports", "./ObjMobile"], function (require, exports, ObjMob
         Cuillere.prototype.gererFinScene = function () {
             //super.arreter();
         };
-        /**
-        *
-        * METHODE SPECIFIQUES A L'ANTAGONISTE
-        *
-        */
-        Cuillere.prototype.attaquer = function () {
-        };
         return Cuillere;
     }(ObjMobile_1.ObjMobile));
     exports.Cuillere = Cuillere;

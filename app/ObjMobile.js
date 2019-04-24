@@ -28,7 +28,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         ObjMobile.prototype.avancer = function () {
             if (this.x == -100) {
                 this.x = 800;
-                this.y = Math.floor(Math.random() * 600) + ObjMobile.limiteY_scene;
+                this.y = Math.floor(Math.random() * 400) + ObjMobile.limiteY_scene;
             }
             this.x += this.sens * this.vitesse;
         };

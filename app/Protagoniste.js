@@ -19,24 +19,91 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         //private tAssiettes = null;
         //private tCuilleres = null;
         //private refVies = null;
-        function Protagoniste(refScene, posX, posY) {
+        function Protagoniste(refScene, posX, posY, tCuilleres, tAssiettes) {
             var _this = _super.call(this, refScene, posX, posY) || this;
+            _this.nombreVies = 3;
+            _this.nombrePointsVies = 3;
+            _this.invincible = false;
+            //Liaison de fonctions
             _this.gererToucheDown_lier = _this.gererToucheDown.bind(_this);
             _this.gererToucheUp_lier = _this.gererToucheUp.bind(_this);
-            _this.perdreVie_lier = _this.perdreVie.bind(_this);
+            //Pointeurs
             _this.refMinuterie = null;
+            //Tableaux
             _this.tTouches = null;
+            _this.tCuilleres = [];
+            _this.tAssiettes = [];
+            //Attribution de pointeurs
+            _this.tCuilleres = tCuilleres;
+            _this.tAssiettes = tAssiettes;
+            //Attribution de methodes
             window.onkeydown = _this.gererToucheDown_lier;
             window.onkeyup = _this.gererToucheUp_lier;
             _this.tTouches = new Array();
-            //tAssiettes
-            //tCuilleres
-            _this.addEventListener('tick', _this.perdreVie_lier);
+            //Ecouteurs d'evenements
+            //this.addEventListener('tick', this.perdrePointVie_lier);
+            window.setInterval(_this.detecterCollision.bind(_this), 1000 / 5);
             for (var intCpt = 0; intCpt <= 3; intCpt++) {
                 _this.tTouches[intCpt] = false;
             }
             return _this;
         }
+        /*************************************************************/
+        //GESTION DES COLLISIONS
+        /*************************************************************/
+        Protagoniste.prototype.detecterCollision = function () {
+            if (this.invincible !== true) {
+                var hitBox = this.getTransformedBounds();
+                for (var i = 0; i < this.tCuilleres.length; i++) {
+                    var hitBoxCuillere = this.tCuilleres[i].getTransformedBounds();
+                    if (hitBox.intersects(hitBoxCuillere)) {
+                        this.etreInvincible();
+                    }
+                }
+                for (var i = 0; i < this.tAssiettes.length; i++) {
+                    var hitBoxAssiette = this.tAssiettes[i].getTransformedBounds();
+                    if (hitBox.intersects(hitBoxAssiette)) {
+                        this.etreInvincible();
+                    }
+                }
+            }
+        };
+        Protagoniste.prototype.etreInvincible = function () {
+            this.invincible = true;
+            window.setTimeout(this.arreterInvincible.bind(this), 1000);
+            this.perdrePointVie();
+        };
+        Protagoniste.prototype.arreterInvincible = function () {
+            this.invincible = false;
+        };
+        Protagoniste.prototype.perdrePointVie = function () {
+            if (this.nombrePointsVies > 0) {
+                this.nombrePointsVies -= 1;
+                console.log("Nombre de points de vie: " + this.nombrePointsVies);
+            }
+            if (this.nombrePointsVies === 0) {
+                this.perdreVie();
+                if (this.nombreVies > 0) {
+                    this.nombrePointsVies = 3;
+                }
+            }
+        };
+        Protagoniste.prototype.perdreVie = function () {
+            if (this.nombreVies > 0) {
+                this.nombreVies -= 1;
+                console.log("Nombre de vies: " + this.nombreVies);
+            }
+            if (this.nombreVies === 0) {
+                console.log('GAME OVER');
+                //METTRE METHODE POUR ARRETER LE JEU
+            }
+        };
+        Protagoniste.prototype.tirerProjectile = function () {
+            console.log('Nouveau projectile');
+        };
+        /*************************************************************/
+        //GESTION DU CLAVIER
+        /*************************************************************/
         Protagoniste.prototype.dessiner = function () {
             window.lib.clipTimmy.call(this);
             this.frameBounds = window.lib.clipTimmy.prototype.frameBounds;
@@ -120,11 +187,6 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
                     this.y = this.y + 4;
                 }
             }
-        };
-        Protagoniste.prototype.perdreVie = function () {
-        };
-        Protagoniste.prototype.tirerProjectile = function () {
-            console.log('Nouveau projectile');
         };
         Protagoniste.tLimitesDeplacements = {
             haut: 300,

@@ -49,7 +49,7 @@ export class Jeu {
 
 
    public creerProtagoniste():void {
-     this.protagoniste = new Protagoniste(this.refScene, 125, 400);
+     this.protagoniste = new Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes);
    }
 
    public creerAssiette():void {
@@ -65,7 +65,7 @@ export class Jeu {
      //Instanciation de l'objet
      this.tAssiettes.push(new Assiette(this.refScene, 800, yHasard, 2));
 
-     console.log(`Tableau d'assiettes: ${this.tAssiettes}`);
+     //console.log(`Tableau d'assiettes: ${this.tAssiettes}`);
    }
 
    public creerCuillere():void {
@@ -81,7 +81,7 @@ export class Jeu {
      //Instanciation de l'objet
      this.tCuilleres.push(new Cuillere(this.refScene, 800, yHasard, 4));
 
-     console.log(`Tableau de cuilleres: ${this.tCuilleres}`);
+     //console.log(`Tableau de cuilleres: ${this.tCuilleres}`);
    }
 
 
