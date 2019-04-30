@@ -16,9 +16,11 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
     Object.defineProperty(exports, "__esModule", { value: true });
     var DecorFixe = /** @class */ (function (_super) {
         __extends(DecorFixe, _super);
-        function DecorFixe(refScene, posX, posY, refJeu) {
+        //private niveau:number = null;
+        function DecorFixe(refScene, posX, posY, refJeu, niveau) {
             var _this = _super.call(this, refScene, posX, posY) || this;
-            _this.dessiner();
+            //this.dessiner();
+            _this.gotoAndStop("niveau_" + niveau);
             return _this;
         }
         DecorFixe.prototype.dessiner = function () {

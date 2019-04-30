@@ -1,6 +1,8 @@
 import {Protagoniste} from './Protagoniste';
 import {Assiette} from './Assiette';
 import {Cuillere} from './Cuillere';
+import {DecorFixe} from './DecorFixe';
+import {DecorDefilant} from './DecorDefilant';
 
 export class Jeu {
 
@@ -12,12 +14,14 @@ export class Jeu {
    //Gestion du jeu
    private refScene = null;
    private estDemarre = false;
+   private tDecorDefilant = [];
+   private decorFixe = null;
 
    //Gestion des personnages
    private refMinuterieAssiette:number = null;
    private refMinuterieCuillere:number = null;
-   private nbAssiettes = 3;
-   private nbCuilleres = 4;
+   private nbAssiettes = 2;
+   private nbCuilleres = 3;
    private tAssiettes = [];
    private tCuilleres = [];
 
@@ -31,6 +35,10 @@ export class Jeu {
 
    public demarrer():void {
      this.estDemarre = true;
+
+     //Decors
+     this.creerDecorFixe();
+     this.creerDecorDefilant();
 
      //Protagoniste
      this.creerProtagoniste();
@@ -49,23 +57,17 @@ export class Jeu {
 
 
    public creerProtagoniste():void {
-     this.protagoniste = new Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes);
+     this.protagoniste = new Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes, this);
    }
 
    public creerAssiette():void {
-
      let yHasard:number = Math.floor(Math.random() * 600) + 300;
 
-     //Gestion de la generation d'obstacles
      if(this.tAssiettes.length == this.nbAssiettes-1) {
        console.log('nombre maximal atteint');
        window.clearInterval(this.refMinuterieAssiette);
      }
-
-     //Instanciation de l'objet
      this.tAssiettes.push(new Assiette(this.refScene, 800, yHasard, 2));
-
-     //console.log(`Tableau d'assiettes: ${this.tAssiettes}`);
    }
 
    public creerCuillere():void {
@@ -84,9 +86,39 @@ export class Jeu {
      //console.log(`Tableau de cuilleres: ${this.tCuilleres}`);
    }
 
+   public creerDecorFixe():void {
+      this.decorFixe = new DecorFixe(this.refScene , 0, 0, this, 2); 
+   }
+
+   public creerDecorDefilant():void {
+      this.tDecorDefilant[0] = new DecorDefilant(this.refScene, 800, 0, 1, this, 2);
+      this.tDecorDefilant[1] = new DecorDefilant(this.refScene, 1600, 0, 1,this, 2);
+   }
+
 
    //En construction...
-   private arreter() {
+   public arreter() {
+      this.estDemarre = false;
+
+      this.protagoniste = null;
+
+
+      this.refMinuterieAssiette = null;
+      for(let i = 0; i < this.tAssiettes.length; i++) {
+        this.tAssiettes[i].arreterAssiette();
+      }
+      this.tAssiettes = null;
+    
+      this.refMinuterieCuillere = null;
+      for(let i = 0; i < this.tCuilleres.length; i++) {
+        this.tCuilleres[i].arreterCuillere();
+      }
+      this.tCuilleres = null;
+
+      for(let i = 0; i < this.tDecorDefilant.length; i++) {
+        this.tDecorDefilant[i].arreterDefilant();
+      }
+      this.tDecorDefilant = null;
 
    }
 

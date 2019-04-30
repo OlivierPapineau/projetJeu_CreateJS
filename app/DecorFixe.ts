@@ -3,10 +3,14 @@ import {Jeu} from "./Jeu";
 
 export class DecorFixe extends ObjVisible {
 
-    public constructor(refScene:createjs.Stage, posX:number, posY:number, refJeu:Jeu) {
+    //private niveau:number = null;
+
+    public constructor(refScene:createjs.Stage, posX:number, posY:number, refJeu:Jeu, niveau:number) {
         super(refScene, posX, posY);
 
-        this.dessiner();
+        //this.dessiner();
+
+        this.gotoAndStop(`niveau_${niveau}`);
     }
 
     protected dessiner() {

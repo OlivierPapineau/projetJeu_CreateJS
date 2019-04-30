@@ -1,6 +1,7 @@
 import {ObjVisible} from './ObjVisible';
 import {Cuillere} from './Cuillere';
 import {Assiette} from './Assiette';
+import { Jeu } from './Jeu';
 
 export class Protagoniste extends ObjVisible {
 
@@ -14,6 +15,7 @@ export class Protagoniste extends ObjVisible {
 
   //Pointeurs
   private refMinuterie:number = null;
+  private refJeu:Jeu = null;
 
   //Tableaux
   private tTouches:Array<boolean> = null;
@@ -29,12 +31,16 @@ export class Protagoniste extends ObjVisible {
   //private tCuilleres = null;
   //private refVies = null;
 
-  public constructor(refScene:createjs.Stage, posX:number, posY:number, tCuilleres, tAssiettes) {
+  public constructor(refScene:createjs.Stage, posX:number, posY:number, tCuilleres:Array<Cuillere>, tAssiettes:Array<Assiette>, jeu:Jeu) {
     super(refScene, posX, posY);
+
+    //Animations
+    this.gotoAndPlay('marche');
 
     //Attribution de pointeurs
     this.tCuilleres = tCuilleres;
     this.tAssiettes = tAssiettes;
+    this.refJeu = jeu;
 
     //Attribution de methodes
     window.onkeydown = this.gererToucheDown_lier;
@@ -102,15 +108,22 @@ export class Protagoniste extends ObjVisible {
     }
   }
 
-  private perdreVie() {
+  private perdreVie():void {
     if(this.nombreVies > 0) {
       this.nombreVies -= 1;
       console.log(`Nombre de vies: ${this.nombreVies}`);
     }
     if(this.nombreVies === 0) {
       console.log('GAME OVER');
-      //METTRE METHODE POUR ARRETER LE JEU
+      this.gotoAndPlay('mort');
+      window.setTimeout(this.mourir.bind(this), 1000);
     }
+  }
+
+  private mourir():void {
+    super.arreter();
+    window.clearInterval();
+    this.refJeu.arreter()
   }
 
   private tirerProjectile() {

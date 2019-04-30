@@ -19,7 +19,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         //private tAssiettes = null;
         //private tCuilleres = null;
         //private refVies = null;
-        function Protagoniste(refScene, posX, posY, tCuilleres, tAssiettes) {
+        function Protagoniste(refScene, posX, posY, tCuilleres, tAssiettes, jeu) {
             var _this = _super.call(this, refScene, posX, posY) || this;
             _this.nombreVies = 3;
             _this.nombrePointsVies = 3;
@@ -29,13 +29,17 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             _this.gererToucheUp_lier = _this.gererToucheUp.bind(_this);
             //Pointeurs
             _this.refMinuterie = null;
+            _this.refJeu = null;
             //Tableaux
             _this.tTouches = null;
             _this.tCuilleres = [];
             _this.tAssiettes = [];
+            //Animations
+            _this.gotoAndPlay('marche');
             //Attribution de pointeurs
             _this.tCuilleres = tCuilleres;
             _this.tAssiettes = tAssiettes;
+            _this.refJeu = jeu;
             //Attribution de methodes
             window.onkeydown = _this.gererToucheDown_lier;
             window.onkeyup = _this.gererToucheUp_lier;
@@ -95,8 +99,14 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             }
             if (this.nombreVies === 0) {
                 console.log('GAME OVER');
-                //METTRE METHODE POUR ARRETER LE JEU
+                this.gotoAndPlay('mort');
+                window.setTimeout(this.mourir.bind(this), 1000);
             }
+        };
+        Protagoniste.prototype.mourir = function () {
+            _super.prototype.arreter.call(this);
+            window.clearInterval();
+            this.refJeu.arreter();
         };
         Protagoniste.prototype.tirerProjectile = function () {
             console.log('Nouveau projectile');

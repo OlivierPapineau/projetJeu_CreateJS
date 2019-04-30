@@ -1,4 +1,4 @@
-define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere"], function (require, exports, Protagoniste_1, Assiette_1, Cuillere_1) {
+define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./DecorFixe", "./DecorDefilant"], function (require, exports, Protagoniste_1, Assiette_1, Cuillere_1, DecorFixe_1, DecorDefilant_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Jeu = /** @class */ (function () {
@@ -9,11 +9,13 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere"], fun
             //Gestion du jeu
             this.refScene = null;
             this.estDemarre = false;
+            this.tDecorDefilant = [];
+            this.decorFixe = null;
             //Gestion des personnages
             this.refMinuterieAssiette = null;
             this.refMinuterieCuillere = null;
-            this.nbAssiettes = 3;
-            this.nbCuilleres = 4;
+            this.nbAssiettes = 2;
+            this.nbCuilleres = 3;
             this.tAssiettes = [];
             this.tCuilleres = [];
             //Gestion du protagoniste
@@ -23,6 +25,9 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere"], fun
         }
         Jeu.prototype.demarrer = function () {
             this.estDemarre = true;
+            //Decors
+            this.creerDecorFixe();
+            this.creerDecorDefilant();
             //Protagoniste
             this.creerProtagoniste();
             //Obstacle
@@ -35,18 +40,15 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere"], fun
             }
         };
         Jeu.prototype.creerProtagoniste = function () {
-            this.protagoniste = new Protagoniste_1.Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes);
+            this.protagoniste = new Protagoniste_1.Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes, this);
         };
         Jeu.prototype.creerAssiette = function () {
             var yHasard = Math.floor(Math.random() * 600) + 300;
-            //Gestion de la generation d'obstacles
             if (this.tAssiettes.length == this.nbAssiettes - 1) {
                 console.log('nombre maximal atteint');
                 window.clearInterval(this.refMinuterieAssiette);
             }
-            //Instanciation de l'objet
             this.tAssiettes.push(new Assiette_1.Assiette(this.refScene, 800, yHasard, 2));
-            //console.log(`Tableau d'assiettes: ${this.tAssiettes}`);
         };
         Jeu.prototype.creerCuillere = function () {
             var yHasard = Math.floor(Math.random() * 600) + 300;
@@ -59,8 +61,31 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere"], fun
             this.tCuilleres.push(new Cuillere_1.Cuillere(this.refScene, 800, yHasard, 4));
             //console.log(`Tableau de cuilleres: ${this.tCuilleres}`);
         };
+        Jeu.prototype.creerDecorFixe = function () {
+            this.decorFixe = new DecorFixe_1.DecorFixe(this.refScene, 0, 0, this, 2);
+        };
+        Jeu.prototype.creerDecorDefilant = function () {
+            this.tDecorDefilant[0] = new DecorDefilant_1.DecorDefilant(this.refScene, 800, 0, 1, this, 2);
+            this.tDecorDefilant[1] = new DecorDefilant_1.DecorDefilant(this.refScene, 1600, 0, 1, this, 2);
+        };
         //En construction...
         Jeu.prototype.arreter = function () {
+            this.estDemarre = false;
+            this.protagoniste = null;
+            this.refMinuterieAssiette = null;
+            for (var i = 0; i < this.tAssiettes.length; i++) {
+                this.tAssiettes[i].arreterAssiette();
+            }
+            this.tAssiettes = null;
+            this.refMinuterieCuillere = null;
+            for (var i = 0; i < this.tCuilleres.length; i++) {
+                this.tCuilleres[i].arreterCuillere();
+            }
+            this.tCuilleres = null;
+            for (var i = 0; i < this.tDecorDefilant.length; i++) {
+                this.tDecorDefilant[i].arreterDefilant();
+            }
+            this.tDecorDefilant = null;
         };
         return Jeu;
     }());

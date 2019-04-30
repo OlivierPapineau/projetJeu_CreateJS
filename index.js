@@ -496,17 +496,17 @@ p.frameBounds = [rect, new cjs.Rectangle(-46.7,-107.4,95,100), new cjs.Rectangle
 	// etat
 	this.instance = new lib.decor_defilant_level1ai("synched",0);
 	this.instance.parent = this;
-	this.instance.setTransform(360.7,150.5,1,1,0,0,0,361.2,150.5);
+	this.instance.setTransform(399.7,150,1.108,0.9968,0,0,0,361.2,150.5);
 
 	this.instance_1 = new lib.decor_defilant_level2ai("synched",0);
 	this.instance_1.parent = this;
-	this.instance_1.setTransform(384.5,151.2,1,1,0,0,0,384.5,151.2);
+	this.instance_1.setTransform(399.5,149.95,1.039,0.9917,0,0,0,384.5,151.2);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance}]}).to({state:[{t:this.instance_1}]},1).wait(1));
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = rect = new cjs.Rectangle(-1,0,723,301.5);
-p.frameBounds = [rect, new cjs.Rectangle(-1,0,771,302.5)];
+p.nominalBounds = rect = new cjs.Rectangle(-1.3,0,801.4,300.7);
+p.frameBounds = [rect, new cjs.Rectangle(-1,0,801,300)];
 
 
 (lib.clipAssiette = function(mode,startPosition,loop) {
@@ -564,8 +564,8 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/decor_fixe_level1.png?1556409800086", id:"decor_fixe_level1"},
-		{src:"images/decor_fixe_level2.png?1556409800086", id:"decor_fixe_level2"}
+		{src:"images/decor_fixe_level1.png?1556640846353", id:"decor_fixe_level1"},
+		{src:"images/decor_fixe_level2.png?1556640846353", id:"decor_fixe_level2"}
 	],
 	preloads: []
 };

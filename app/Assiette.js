@@ -26,6 +26,9 @@ define(["require", "exports", "./ObjMobile"], function (require, exports, ObjMob
         Assiette.prototype.gererFinScene = function () {
             //super.arreter();
         };
+        Assiette.prototype.arreterAssiette = function () {
+            _super.prototype.arreter.call(this);
+        };
         return Assiette;
     }(ObjMobile_1.ObjMobile));
     exports.Assiette = Assiette;

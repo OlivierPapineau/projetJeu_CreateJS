@@ -32,6 +32,10 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             }
             this.x += this.sens * this.vitesse;
         };
+        ObjMobile.prototype.arreter = function () {
+            _super.prototype.arreter.call(this);
+            this.removeEventListener('tick', this.avancer_lier);
+        };
         ObjMobile.limiteY_scene = 300;
         return ObjMobile;
     }(ObjVisible_1.ObjVisible));

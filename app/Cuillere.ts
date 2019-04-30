@@ -4,6 +4,8 @@ import {Protagoniste} from './Protagoniste';
 export class Cuillere extends ObjMobile {
   public constructor(refScene:createjs.Stage, posX:number, posY:number, vitesse:number) {
     super(refScene, posX, posY, vitesse);
+
+    this.gotoAndPlay('marche');
   }
 
   protected dessiner():void {
@@ -13,6 +15,10 @@ export class Cuillere extends ObjMobile {
 
   protected gererFinScene():void {
     //super.arreter();
+  }
+
+  public arreterCuillere():void {
+    super.arreter();
   }
 
   /**

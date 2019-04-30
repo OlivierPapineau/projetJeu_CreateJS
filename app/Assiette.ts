@@ -15,4 +15,8 @@ export class Assiette extends ObjMobile {
   protected gererFinScene():void {
     //super.arreter();
   }
+
+  public arreterAssiette():void {
+    super.arreter();
+  }
 }

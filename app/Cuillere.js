@@ -17,7 +17,9 @@ define(["require", "exports", "./ObjMobile"], function (require, exports, ObjMob
     var Cuillere = /** @class */ (function (_super) {
         __extends(Cuillere, _super);
         function Cuillere(refScene, posX, posY, vitesse) {
-            return _super.call(this, refScene, posX, posY, vitesse) || this;
+            var _this = _super.call(this, refScene, posX, posY, vitesse) || this;
+            _this.gotoAndPlay('marche');
+            return _this;
         }
         Cuillere.prototype.dessiner = function () {
             window.lib.clipCuillere.call(this);
@@ -25,6 +27,9 @@ define(["require", "exports", "./ObjMobile"], function (require, exports, ObjMob
         };
         Cuillere.prototype.gererFinScene = function () {
             //super.arreter();
+        };
+        Cuillere.prototype.arreterCuillere = function () {
+            _super.prototype.arreter.call(this);
         };
         return Cuillere;
     }(ObjMobile_1.ObjMobile));

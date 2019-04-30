@@ -27,9 +27,9 @@ export abstract class ObjMobile extends ObjVisible {
 
   protected abstract gererFinScene():void;
 
-  // protected arreter() {
-  //   super.arreter();
-  //   this.removeEventListener('tick', this.avancer_lier);
-  // }
+  protected arreter() {
+     super.arreter();
+     this.removeEventListener('tick', this.avancer_lier);
+  }
 
 }
