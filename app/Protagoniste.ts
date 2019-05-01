@@ -89,6 +89,7 @@ export class Protagoniste extends ObjVisible {
     window.setTimeout(this.arreterInvincible.bind(this), 1000);
 
     this.perdrePointVie();
+    this.gotoAndPlay("collision");
   }
 
   private arreterInvincible():void {
@@ -116,7 +117,7 @@ export class Protagoniste extends ObjVisible {
     if(this.nombreVies === 0) {
       console.log('GAME OVER');
       this.gotoAndPlay('mort');
-      window.setTimeout(this.mourir.bind(this), 1000);
+      window.setTimeout(this.mourir.bind(this), 1500);
     }
   }
 
@@ -128,6 +129,8 @@ export class Protagoniste extends ObjVisible {
 
   private tirerProjectile() {
     console.log('Nouveau projectile');
+    this.gotoAndPlay('tir');
+    this.refJeu.creerProjectile(this.x, this.y - 80);
   }
 
 
@@ -149,18 +152,22 @@ export class Protagoniste extends ObjVisible {
     }
 
     switch(e.keyCode) {
+      case 65:
       case 37 :
         this.tTouches[0] = true;
         e.preventDefault();
         break;
+      case 87:
       case 38 :
         this.tTouches[1] = true;
         e.preventDefault();
         break;
+      case 68:
       case 39 :
         this.tTouches[2] = true;
         e.preventDefault();
         break;
+      case 83:
       case 40 :
         this.tTouches[3] = true;
         e.preventDefault();
@@ -175,18 +182,22 @@ export class Protagoniste extends ObjVisible {
   private gererToucheUp(e:KeyboardEvent):void {
 
     switch(e.keyCode) {
+      case 65:
       case 37 :
         this.tTouches[0] = false;
         e.preventDefault();
         break;
+      case 87:
       case 38 :
         this.tTouches[1] = false;
         e.preventDefault();
         break;
+      case 68:
       case 39 :
         this.tTouches[2] = false;
         e.preventDefault();
         break;
+      case 83:
       case 40 :
         this.tTouches[3] = false;
         e.preventDefault();

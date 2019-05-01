@@ -3,6 +3,7 @@ import {Assiette} from './Assiette';
 import {Cuillere} from './Cuillere';
 import {DecorFixe} from './DecorFixe';
 import {DecorDefilant} from './DecorDefilant';
+import { Projectile } from './Projectile';
 
 export class Jeu {
 
@@ -24,6 +25,10 @@ export class Jeu {
    private nbCuilleres = 3;
    private tAssiettes = [];
    private tCuilleres = [];
+
+   //Gestion des munitions
+   private vitesseProjectile = 7;
+   private munitionMoutarde = null;
 
    //Gestion du protagoniste
    private protagoniste = null;
@@ -95,13 +100,20 @@ export class Jeu {
       this.tDecorDefilant[1] = new DecorDefilant(this.refScene, 1600, 0, 1,this, 2);
    }
 
+   public creerProjectile(posX:number, posY:number) {
+      this.munitionMoutarde = new Projectile(this.refScene, posX, posY, this.vitesseProjectile);
+   }
+
+
+
+
+
+
+
 
    //En construction...
    public arreter() {
       this.estDemarre = false;
-
-      this.protagoniste = null;
-
 
       this.refMinuterieAssiette = null;
       for(let i = 0; i < this.tAssiettes.length; i++) {
@@ -119,6 +131,9 @@ export class Jeu {
         this.tDecorDefilant[i].arreterDefilant();
       }
       this.tDecorDefilant = null;
+
+
+      this.protagoniste = null;
 
    }
 

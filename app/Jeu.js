@@ -1,4 +1,4 @@
-define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./DecorFixe", "./DecorDefilant"], function (require, exports, Protagoniste_1, Assiette_1, Cuillere_1, DecorFixe_1, DecorDefilant_1) {
+define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./DecorFixe", "./DecorDefilant", "./Projectile"], function (require, exports, Protagoniste_1, Assiette_1, Cuillere_1, DecorFixe_1, DecorDefilant_1, Projectile_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Jeu = /** @class */ (function () {
@@ -18,6 +18,9 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             this.nbCuilleres = 3;
             this.tAssiettes = [];
             this.tCuilleres = [];
+            //Gestion des munitions
+            this.vitesseProjectile = 7;
+            this.munitionMoutarde = null;
             //Gestion du protagoniste
             this.protagoniste = null;
             this.refScene = refScene;
@@ -68,10 +71,12 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             this.tDecorDefilant[0] = new DecorDefilant_1.DecorDefilant(this.refScene, 800, 0, 1, this, 2);
             this.tDecorDefilant[1] = new DecorDefilant_1.DecorDefilant(this.refScene, 1600, 0, 1, this, 2);
         };
+        Jeu.prototype.creerProjectile = function (posX, posY) {
+            this.munitionMoutarde = new Projectile_1.Projectile(this.refScene, posX, posY, this.vitesseProjectile);
+        };
         //En construction...
         Jeu.prototype.arreter = function () {
             this.estDemarre = false;
-            this.protagoniste = null;
             this.refMinuterieAssiette = null;
             for (var i = 0; i < this.tAssiettes.length; i++) {
                 this.tAssiettes[i].arreterAssiette();
@@ -86,6 +91,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
                 this.tDecorDefilant[i].arreterDefilant();
             }
             this.tDecorDefilant = null;
+            this.protagoniste = null;
         };
         return Jeu;
     }());

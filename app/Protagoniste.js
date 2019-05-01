@@ -76,6 +76,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             this.invincible = true;
             window.setTimeout(this.arreterInvincible.bind(this), 1000);
             this.perdrePointVie();
+            this.gotoAndPlay("collision");
         };
         Protagoniste.prototype.arreterInvincible = function () {
             this.invincible = false;
@@ -100,7 +101,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             if (this.nombreVies === 0) {
                 console.log('GAME OVER');
                 this.gotoAndPlay('mort');
-                window.setTimeout(this.mourir.bind(this), 1000);
+                window.setTimeout(this.mourir.bind(this), 1500);
             }
         };
         Protagoniste.prototype.mourir = function () {
@@ -110,6 +111,8 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         };
         Protagoniste.prototype.tirerProjectile = function () {
             console.log('Nouveau projectile');
+            this.gotoAndPlay('tir');
+            this.refJeu.creerProjectile(this.x, this.y - 80);
         };
         /*************************************************************/
         //GESTION DU CLAVIER
@@ -124,18 +127,22 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
                 this.refMinuterie = window.setInterval(this.faireBougerProtago.bind(this), 35);
             }
             switch (e.keyCode) {
+                case 65:
                 case 37:
                     this.tTouches[0] = true;
                     e.preventDefault();
                     break;
+                case 87:
                 case 38:
                     this.tTouches[1] = true;
                     e.preventDefault();
                     break;
+                case 68:
                 case 39:
                     this.tTouches[2] = true;
                     e.preventDefault();
                     break;
+                case 83:
                 case 40:
                     this.tTouches[3] = true;
                     e.preventDefault();
@@ -148,18 +155,22 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         };
         Protagoniste.prototype.gererToucheUp = function (e) {
             switch (e.keyCode) {
+                case 65:
                 case 37:
                     this.tTouches[0] = false;
                     e.preventDefault();
                     break;
+                case 87:
                 case 38:
                     this.tTouches[1] = false;
                     e.preventDefault();
                     break;
+                case 68:
                 case 39:
                     this.tTouches[2] = false;
                     e.preventDefault();
                     break;
+                case 83:
                 case 40:
                     this.tTouches[3] = false;
                     e.preventDefault();
