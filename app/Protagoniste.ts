@@ -1,7 +1,8 @@
 import {ObjVisible} from './ObjVisible';
 import {Cuillere} from './Cuillere';
 import {Assiette} from './Assiette';
-import { Jeu } from './Jeu';
+import {Jeu} from './Jeu';
+import {Afficheur} from './Afficheur';
 
 export class Protagoniste extends ObjVisible {
 
@@ -16,6 +17,7 @@ export class Protagoniste extends ObjVisible {
   //Pointeurs
   private refMinuterie:number = null;
   private refJeu:Jeu = null;
+  private refAfficheur:Afficheur = null;
 
   //Tableaux
   private tTouches:Array<boolean> = null;
@@ -31,7 +33,7 @@ export class Protagoniste extends ObjVisible {
   //private tCuilleres = null;
   //private refVies = null;
 
-  public constructor(refScene:createjs.Stage, posX:number, posY:number, tCuilleres:Array<Cuillere>, tAssiettes:Array<Assiette>, jeu:Jeu) {
+  public constructor(refScene:createjs.Stage, posX:number, posY:number, tCuilleres:Array<Cuillere>, tAssiettes:Array<Assiette>, jeu:Jeu, gui:Afficheur) {
     super(refScene, posX, posY);
 
     //Animations
@@ -41,6 +43,7 @@ export class Protagoniste extends ObjVisible {
     this.tCuilleres = tCuilleres;
     this.tAssiettes = tAssiettes;
     this.refJeu = jeu;
+    this.refAfficheur = gui;
 
     //Attribution de methodes
     window.onkeydown = this.gererToucheDown_lier;
@@ -84,6 +87,10 @@ export class Protagoniste extends ObjVisible {
     }
   }
 
+  /*************************************************************/
+  //GESTION DES POINTS DE VIE
+  /*************************************************************/
+
   private etreInvincible():void {
     this.invincible = true;
     window.setTimeout(this.arreterInvincible.bind(this), 1000);
@@ -100,11 +107,14 @@ export class Protagoniste extends ObjVisible {
     if(this.nombrePointsVies > 0) {
       this.nombrePointsVies -= 1;
       console.log(`Nombre de points de vie: ${this.nombrePointsVies}`);
+      this.gererAffichageVies(this.nombreVies, this.nombrePointsVies);
     }
     if(this.nombrePointsVies === 0) {
       this.perdreVie();
       if(this.nombreVies > 0) {
         this.nombrePointsVies = 3;
+        console.log(this.nombrePointsVies);
+        this.gererAffichageVies(this.nombreVies, this.nombrePointsVies);
       }
     }
   }
@@ -113,6 +123,7 @@ export class Protagoniste extends ObjVisible {
     if(this.nombreVies > 0) {
       this.nombreVies -= 1;
       console.log(`Nombre de vies: ${this.nombreVies}`);
+      this.gererAffichageVies(this.nombreVies, this.nombrePointsVies);
     }
     if(this.nombreVies === 0) {
       console.log('GAME OVER');
@@ -121,11 +132,21 @@ export class Protagoniste extends ObjVisible {
     }
   }
 
+  private gererAffichageVies(nbVies:number, nbPoints:number):void {
+    this.refAfficheur.gererVies(nbVies, nbPoints);
+  }
+
+
+  //Destructeur du protagoniste
   private mourir():void {
     super.arreter();
     window.clearInterval();
     this.refJeu.arreter()
   }
+
+  /*************************************************************/
+  //GESTION DES PROJECTILES
+  /*************************************************************/
 
   private tirerProjectile() {
     console.log('Nouveau projectile');

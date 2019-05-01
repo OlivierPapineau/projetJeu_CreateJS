@@ -3,7 +3,8 @@ import {Assiette} from './Assiette';
 import {Cuillere} from './Cuillere';
 import {DecorFixe} from './DecorFixe';
 import {DecorDefilant} from './DecorDefilant';
-import { Projectile } from './Projectile';
+import {Projectile} from './Projectile';
+import {Afficheur} from './Afficheur';
 
 export class Jeu {
 
@@ -11,6 +12,9 @@ export class Jeu {
   /*
    * @Todo: creer les fichiers de classe pour les elements de la scene
    */
+
+   //Gestion de l'interface graphique
+   private GUI = null;
 
    //Gestion du jeu
    private refScene = null;
@@ -45,6 +49,14 @@ export class Jeu {
      this.creerDecorFixe();
      this.creerDecorDefilant();
 
+     //Interface graphique
+     this.creerGUI();
+
+     //Antagoniste
+     if(this.refMinuterieCuillere === null) {
+      this.refMinuterieCuillere = window.setInterval(this.creerCuillere.bind(this), 1000*1.2);
+     }
+
      //Protagoniste
      this.creerProtagoniste();
 
@@ -53,16 +65,14 @@ export class Jeu {
        this.refMinuterieAssiette = window.setInterval(this.creerAssiette.bind(this), 1000*1.7);
      }
 
-     //Antagoniste
-     if(this.refMinuterieCuillere === null) {
-       this.refMinuterieCuillere = window.setInterval(this.creerCuillere.bind(this), 1000*1.2);
-     }
-
    }
 
+   public creerGUI():void {
+     this.GUI = new Afficheur(this.refScene, 0, 0);
+   }
 
    public creerProtagoniste():void {
-     this.protagoniste = new Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes, this);
+     this.protagoniste = new Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes, this, this.GUI);
    }
 
    public creerAssiette():void {
@@ -101,7 +111,7 @@ export class Jeu {
    }
 
    public creerProjectile(posX:number, posY:number) {
-      this.munitionMoutarde = new Projectile(this.refScene, posX, posY, this.vitesseProjectile);
+      this.munitionMoutarde = new Projectile(this.refScene, posX, posY, this.vitesseProjectile, this.tCuilleres);
    }
 
 

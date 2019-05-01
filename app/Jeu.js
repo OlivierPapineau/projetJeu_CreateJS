@@ -1,4 +1,4 @@
-define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./DecorFixe", "./DecorDefilant", "./Projectile"], function (require, exports, Protagoniste_1, Assiette_1, Cuillere_1, DecorFixe_1, DecorDefilant_1, Projectile_1) {
+define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./DecorFixe", "./DecorDefilant", "./Projectile", "./Afficheur"], function (require, exports, Protagoniste_1, Assiette_1, Cuillere_1, DecorFixe_1, DecorDefilant_1, Projectile_1, Afficheur_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Jeu = /** @class */ (function () {
@@ -6,6 +6,8 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             /*
              * @Todo: creer les fichiers de classe pour les elements de la scene
              */
+            //Gestion de l'interface graphique
+            this.GUI = null;
             //Gestion du jeu
             this.refScene = null;
             this.estDemarre = false;
@@ -31,19 +33,24 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             //Decors
             this.creerDecorFixe();
             this.creerDecorDefilant();
+            //Interface graphique
+            this.creerGUI();
+            //Antagoniste
+            if (this.refMinuterieCuillere === null) {
+                this.refMinuterieCuillere = window.setInterval(this.creerCuillere.bind(this), 1000 * 1.2);
+            }
             //Protagoniste
             this.creerProtagoniste();
             //Obstacle
             if (this.refMinuterieAssiette === null) {
                 this.refMinuterieAssiette = window.setInterval(this.creerAssiette.bind(this), 1000 * 1.7);
             }
-            //Antagoniste
-            if (this.refMinuterieCuillere === null) {
-                this.refMinuterieCuillere = window.setInterval(this.creerCuillere.bind(this), 1000 * 1.2);
-            }
+        };
+        Jeu.prototype.creerGUI = function () {
+            this.GUI = new Afficheur_1.Afficheur(this.refScene, 0, 0);
         };
         Jeu.prototype.creerProtagoniste = function () {
-            this.protagoniste = new Protagoniste_1.Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes, this);
+            this.protagoniste = new Protagoniste_1.Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes, this, this.GUI);
         };
         Jeu.prototype.creerAssiette = function () {
             var yHasard = Math.floor(Math.random() * 600) + 300;
@@ -72,7 +79,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             this.tDecorDefilant[1] = new DecorDefilant_1.DecorDefilant(this.refScene, 1600, 0, 1, this, 2);
         };
         Jeu.prototype.creerProjectile = function (posX, posY) {
-            this.munitionMoutarde = new Projectile_1.Projectile(this.refScene, posX, posY, this.vitesseProjectile);
+            this.munitionMoutarde = new Projectile_1.Projectile(this.refScene, posX, posY, this.vitesseProjectile, this.tCuilleres);
         };
         //En construction...
         Jeu.prototype.arreter = function () {

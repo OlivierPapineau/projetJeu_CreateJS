@@ -16,10 +16,14 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
     Object.defineProperty(exports, "__esModule", { value: true });
     var Projectile = /** @class */ (function (_super) {
         __extends(Projectile, _super);
-        function Projectile(refScene, posX, posY, vitesse) {
+        function Projectile(refScene, posX, posY, vitesse, tCuillere) {
             var _this = _super.call(this, refScene, posX, posY) || this;
             _this.avancer_lier = _this.avancer.bind(_this);
+            _this.ref_tCuilleres = [];
             Projectile.vitesse = vitesse;
+            _this.ref_tCuilleres = tCuillere;
+            console.log(_this.ref_tCuilleres);
+            window.setInterval(_this.detecterCollision.bind(_this), 1000 / 10);
             _this.addEventListener('tick', _this.avancer_lier);
             _this.play();
             return _this;
@@ -33,6 +37,17 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             if (this.x > 800) {
                 this.arreter();
             }
+        };
+        Projectile.prototype.detecterCollision = function () {
+            var hitBox = this.getTransformedBounds();
+            for (var i = 0; i < this.ref_tCuilleres.length; i++) {
+                var hitBoxCuillere = this.ref_tCuilleres[i].getTransformedBounds();
+                if (hitBox.intersects(hitBoxCuillere)) {
+                    this.ref_tCuilleres[i].arreterCuillere();
+                }
+            }
+        };
+        Projectile.prototype.transpercer = function () {
         };
         Projectile.prototype.arreter = function () {
             _super.prototype.arreter.call(this);

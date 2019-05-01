@@ -19,7 +19,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         //private tAssiettes = null;
         //private tCuilleres = null;
         //private refVies = null;
-        function Protagoniste(refScene, posX, posY, tCuilleres, tAssiettes, jeu) {
+        function Protagoniste(refScene, posX, posY, tCuilleres, tAssiettes, jeu, gui) {
             var _this = _super.call(this, refScene, posX, posY) || this;
             _this.nombreVies = 3;
             _this.nombrePointsVies = 3;
@@ -30,6 +30,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             //Pointeurs
             _this.refMinuterie = null;
             _this.refJeu = null;
+            _this.refAfficheur = null;
             //Tableaux
             _this.tTouches = null;
             _this.tCuilleres = [];
@@ -40,6 +41,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             _this.tCuilleres = tCuilleres;
             _this.tAssiettes = tAssiettes;
             _this.refJeu = jeu;
+            _this.refAfficheur = gui;
             //Attribution de methodes
             window.onkeydown = _this.gererToucheDown_lier;
             window.onkeyup = _this.gererToucheUp_lier;
@@ -72,6 +74,9 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
                 }
             }
         };
+        /*************************************************************/
+        //GESTION DES POINTS DE VIE
+        /*************************************************************/
         Protagoniste.prototype.etreInvincible = function () {
             this.invincible = true;
             window.setTimeout(this.arreterInvincible.bind(this), 1000);
@@ -85,11 +90,14 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             if (this.nombrePointsVies > 0) {
                 this.nombrePointsVies -= 1;
                 console.log("Nombre de points de vie: " + this.nombrePointsVies);
+                this.gererAffichageVies(this.nombreVies, this.nombrePointsVies);
             }
             if (this.nombrePointsVies === 0) {
                 this.perdreVie();
                 if (this.nombreVies > 0) {
                     this.nombrePointsVies = 3;
+                    console.log(this.nombrePointsVies);
+                    this.gererAffichageVies(this.nombreVies, this.nombrePointsVies);
                 }
             }
         };
@@ -97,6 +105,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             if (this.nombreVies > 0) {
                 this.nombreVies -= 1;
                 console.log("Nombre de vies: " + this.nombreVies);
+                this.gererAffichageVies(this.nombreVies, this.nombrePointsVies);
             }
             if (this.nombreVies === 0) {
                 console.log('GAME OVER');
@@ -104,11 +113,18 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
                 window.setTimeout(this.mourir.bind(this), 1500);
             }
         };
+        Protagoniste.prototype.gererAffichageVies = function (nbVies, nbPoints) {
+            this.refAfficheur.gererVies(nbVies, nbPoints);
+        };
+        //Destructeur du protagoniste
         Protagoniste.prototype.mourir = function () {
             _super.prototype.arreter.call(this);
             window.clearInterval();
             this.refJeu.arreter();
         };
+        /*************************************************************/
+        //GESTION DES PROJECTILES
+        /*************************************************************/
         Protagoniste.prototype.tirerProjectile = function () {
             console.log('Nouveau projectile');
             this.gotoAndPlay('tir');
