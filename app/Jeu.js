@@ -23,6 +23,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             //Gestion des munitions
             this.vitesseProjectile = 7;
             this.munitionMoutarde = null;
+            this.tProjectiles = [];
             //Gestion du protagoniste
             this.protagoniste = null;
             this.refScene = refScene;
@@ -68,8 +69,13 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
                 window.clearInterval(this.refMinuterieCuillere);
             }
             //Instanciation de l'objet
-            this.tCuilleres.push(new Cuillere_1.Cuillere(this.refScene, 800, yHasard, 4));
+            this.tCuilleres.push(new Cuillere_1.Cuillere(this.refScene, 800, yHasard, 4, this));
             //console.log(`Tableau de cuilleres: ${this.tCuilleres}`);
+        };
+        Jeu.prototype.detruireCuillere = function (index) {
+            var indexCuillere = this.tCuilleres.indexOf(index);
+            this.tCuilleres.splice(indexCuillere, 1);
+            this.creerCuillere();
         };
         Jeu.prototype.creerDecorFixe = function () {
             this.decorFixe = new DecorFixe_1.DecorFixe(this.refScene, 0, 0, this, 2);
@@ -79,7 +85,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             this.tDecorDefilant[1] = new DecorDefilant_1.DecorDefilant(this.refScene, 1600, 0, 1, this, 2);
         };
         Jeu.prototype.creerProjectile = function (posX, posY) {
-            this.munitionMoutarde = new Projectile_1.Projectile(this.refScene, posX, posY, this.vitesseProjectile, this.tCuilleres);
+            this.tProjectiles.push(new Projectile_1.Projectile(this.refScene, posX, posY, this.vitesseProjectile, this, this.tCuilleres));
         };
         //En construction...
         Jeu.prototype.arreter = function () {

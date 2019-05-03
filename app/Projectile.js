@@ -16,15 +16,17 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
     Object.defineProperty(exports, "__esModule", { value: true });
     var Projectile = /** @class */ (function (_super) {
         __extends(Projectile, _super);
-        function Projectile(refScene, posX, posY, vitesse, tCuillere) {
+        function Projectile(refScene, posX, posY, vitesse, refJeu, ref_tCuilleres) {
             var _this = _super.call(this, refScene, posX, posY) || this;
             _this.avancer_lier = _this.avancer.bind(_this);
-            _this.ref_tCuilleres = [];
+            _this.refJeu = null;
+            _this.tCuilleres = [];
             Projectile.vitesse = vitesse;
-            _this.ref_tCuilleres = tCuillere;
-            console.log(_this.ref_tCuilleres);
-            window.setInterval(_this.detecterCollision.bind(_this), 1000 / 10);
+            _this.refJeu = refJeu;
+            _this.tCuilleres = ref_tCuilleres;
+            //this.setBounds(this.x, this.y, 50, 29.2);
             _this.addEventListener('tick', _this.avancer_lier);
+            //window.setInterval(this.detecterCollision.bind(this), 1000/30);
             _this.play();
             return _this;
         }
@@ -33,17 +35,24 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             this.frameBounds = window.lib.clipMunition.prototype.framebounds;
         };
         Projectile.prototype.avancer = function () {
-            this.x += Projectile.vitesse;
-            if (this.x > 800) {
+            if (this.x <= 800) {
+                this.x += Projectile.vitesse;
+                this.detecterCollision();
+            }
+            else {
+                console.log('limites du jeu atteintes');
                 this.arreter();
+                //this.refJeu.arreterProjectile();
             }
         };
         Projectile.prototype.detecterCollision = function () {
+            console.log("Bounds: " + this.getBounds());
             var hitBox = this.getTransformedBounds();
-            for (var i = 0; i < this.ref_tCuilleres.length; i++) {
-                var hitBoxCuillere = this.ref_tCuilleres[i].getTransformedBounds();
+            //console.log(hitBox);
+            for (var i = 0; i < this.tCuilleres.length; i++) {
+                var hitBoxCuillere = this.tCuilleres[i].getTransformedBounds();
                 if (hitBox.intersects(hitBoxCuillere)) {
-                    this.ref_tCuilleres[i].arreterCuillere();
+                    console.log('COLLISION');
                 }
             }
         };

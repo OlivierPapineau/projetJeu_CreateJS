@@ -33,6 +33,7 @@ export class Jeu {
    //Gestion des munitions
    private vitesseProjectile = 7;
    private munitionMoutarde = null;
+   private tProjectiles = [];
 
    //Gestion du protagoniste
    private protagoniste = null;
@@ -96,9 +97,16 @@ export class Jeu {
      }
 
      //Instanciation de l'objet
-     this.tCuilleres.push(new Cuillere(this.refScene, 800, yHasard, 4));
+     this.tCuilleres.push(new Cuillere(this.refScene, 800, yHasard, 4, this));
 
      //console.log(`Tableau de cuilleres: ${this.tCuilleres}`);
+   }
+
+   public detruireCuillere(index:number):void {
+      let indexCuillere = this.tCuilleres.indexOf(index);
+      this.tCuilleres.splice(indexCuillere, 1);
+
+      this.creerCuillere();
    }
 
    public creerDecorFixe():void {
@@ -111,9 +119,8 @@ export class Jeu {
    }
 
    public creerProjectile(posX:number, posY:number) {
-      this.munitionMoutarde = new Projectile(this.refScene, posX, posY, this.vitesseProjectile, this.tCuilleres);
+      this.tProjectiles.push(new Projectile(this.refScene, posX, posY, this.vitesseProjectile, this, this.tCuilleres));
    }
-
 
 
 

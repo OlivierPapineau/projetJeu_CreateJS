@@ -6,18 +6,19 @@ export class Projectile extends ObjVisible {
 
     private avancer_lier = this.avancer.bind(this);
     private static vitesse = null;
-    private ref_tCuilleres:Array<Cuillere> = [];
+    private refJeu:Jeu = null;
+    private tCuilleres:Array<Cuillere> = [];
 
-    public constructor(refScene:createjs.Stage, posX:number, posY:number, vitesse:number, tCuillere:Array<Cuillere>) {
+    public constructor(refScene:createjs.Stage, posX:number, posY:number, vitesse:number, refJeu:Jeu, ref_tCuilleres:Array<Cuillere>) {
         super(refScene, posX, posY);
 
         Projectile.vitesse = vitesse;
-        this.ref_tCuilleres = tCuillere;
-        console.log(this.ref_tCuilleres);
+        this.refJeu = refJeu;
+        this.tCuilleres = ref_tCuilleres;
 
-
-        window.setInterval(this.detecterCollision.bind(this), 1000/10);
+        //this.setBounds(this.x, this.y, 50, 29.2);
         this.addEventListener('tick', this.avancer_lier);
+        //window.setInterval(this.detecterCollision.bind(this), 1000/30);
         
         this.play();
     }
@@ -28,21 +29,27 @@ export class Projectile extends ObjVisible {
     }
 
     private avancer():void {
-        this.x += Projectile.vitesse;
-
-        if(this.x > 800) {
+        if(this.x <= 800) {
+            this.x += Projectile.vitesse;
+            this.detecterCollision();
+        }
+        else {
+            console.log('limites du jeu atteintes');
             this.arreter();
+            //this.refJeu.arreterProjectile();
         }
     }
 
-    private detecterCollision():void {
+    private detecterCollision() {
+        console.log(`Bounds: ${this.getBounds()}`);
         const hitBox = this.getTransformedBounds();
+        //console.log(hitBox);
 
-        for(let i = 0; i < this.ref_tCuilleres.length; i++) {
-            let hitBoxCuillere = this.ref_tCuilleres[i].getTransformedBounds();
+        for(let i:number = 0; i < this.tCuilleres.length; i++) {
+            let hitBoxCuillere = this.tCuilleres[i].getTransformedBounds();
 
             if(hitBox.intersects(hitBoxCuillere)) {
-                this.ref_tCuilleres[i].arreterCuillere();
+                console.log('COLLISION');
             }
         }
     }

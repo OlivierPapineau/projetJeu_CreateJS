@@ -16,14 +16,34 @@ define(["require", "exports", "./ObjMobile"], function (require, exports, ObjMob
     Object.defineProperty(exports, "__esModule", { value: true });
     var Cuillere = /** @class */ (function (_super) {
         __extends(Cuillere, _super);
-        function Cuillere(refScene, posX, posY, vitesse) {
+        function Cuillere(refScene, posX, posY, vitesse, jeu) {
             var _this = _super.call(this, refScene, posX, posY, vitesse) || this;
+            _this.ref_Jeu = null;
+            _this.ref_Jeu = jeu;
             _this.gotoAndPlay('marche');
             return _this;
+            //window.setInterval(this.detecterProjectile.bind(this), 1000/10);
         }
         Cuillere.prototype.dessiner = function () {
             window.lib.clipCuillere.call(this);
             this.frameBounds = window.lib.clipCuillere.prototype.framebounds;
+        };
+        // private detecterProjectile() {
+        //   for(let i:number = 0; i < this.ref_tProjectiles.length; i++) {
+        //     if(this.ref_tProjectiles[i].y - this.y < 20) {
+        //       let estTouche:boolean = this.ref_tProjectiles[i].detecterCollision(this);
+        //       if(estTouche) {
+        //         console.log('COLLISION');
+        //         //this.mourir();
+        //       }
+        //     }
+        //   }
+        // }
+        Cuillere.prototype.mourir = function () {
+            this.gotoAndPlay('mort');
+            window.clearInterval();
+            this.ref_Jeu.detruireCuillere(this);
+            window.setTimeout(this.arreter.bind(this), 1500);
         };
         Cuillere.prototype.gererFinScene = function () {
             //super.arreter();
