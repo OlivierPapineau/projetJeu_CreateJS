@@ -16,9 +16,11 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
     Object.defineProperty(exports, "__esModule", { value: true });
     var Afficheur = /** @class */ (function (_super) {
         __extends(Afficheur, _super);
-        function Afficheur(refScene, posX, posY) {
+        function Afficheur(refScene, posX, posY, refJeu) {
             var _this = _super.call(this, refScene, posX, posY) || this;
             _this.score = 0;
+            _this.refJeu = null;
+            _this.refJeu = refJeu;
             _this.gotoAndStop('normal');
             return _this;
         }
@@ -28,6 +30,13 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         };
         Afficheur.prototype.gererVies = function (nbVies, nbPoints) {
             this['afficheur_vies'].gotoAndStop(nbVies + "_vies_" + nbPoints + "_points");
+        };
+        Afficheur.prototype.incrementerScore = function (iScore) {
+            this.score += iScore;
+            this['afficheur_score'].Text = this.score;
+            console.log("score: " + this.score);
+        };
+        Afficheur.prototype.reset = function () {
         };
         return Afficheur;
     }(ObjVisible_1.ObjVisible));

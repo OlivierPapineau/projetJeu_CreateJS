@@ -50,6 +50,9 @@ export class Projectile extends ObjVisible {
 
             if(hitBox.intersects(hitBoxCuillere)) {
                 console.log('COLLISION');
+                this.tCuilleres[i].arreterCuillere();
+                this.refJeu.detruireCuillere(i);
+                this.refJeu.gererScore(50);
             }
         }
     }

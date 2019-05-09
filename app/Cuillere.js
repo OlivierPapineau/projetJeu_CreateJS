@@ -22,23 +22,11 @@ define(["require", "exports", "./ObjMobile"], function (require, exports, ObjMob
             _this.ref_Jeu = jeu;
             _this.gotoAndPlay('marche');
             return _this;
-            //window.setInterval(this.detecterProjectile.bind(this), 1000/10);
         }
         Cuillere.prototype.dessiner = function () {
             window.lib.clipCuillere.call(this);
             this.frameBounds = window.lib.clipCuillere.prototype.framebounds;
         };
-        // private detecterProjectile() {
-        //   for(let i:number = 0; i < this.ref_tProjectiles.length; i++) {
-        //     if(this.ref_tProjectiles[i].y - this.y < 20) {
-        //       let estTouche:boolean = this.ref_tProjectiles[i].detecterCollision(this);
-        //       if(estTouche) {
-        //         console.log('COLLISION');
-        //         //this.mourir();
-        //       }
-        //     }
-        //   }
-        // }
         Cuillere.prototype.mourir = function () {
             this.gotoAndPlay('mort');
             window.clearInterval();

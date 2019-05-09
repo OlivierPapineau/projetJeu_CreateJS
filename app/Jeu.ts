@@ -69,7 +69,7 @@ export class Jeu {
    }
 
    public creerGUI():void {
-     this.GUI = new Afficheur(this.refScene, 0, 0);
+     this.GUI = new Afficheur(this.refScene, 0, 0, this);
    }
 
    public creerProtagoniste():void {
@@ -102,12 +102,27 @@ export class Jeu {
      //console.log(`Tableau de cuilleres: ${this.tCuilleres}`);
    }
 
+
+
+
+
+
    public detruireCuillere(index:number):void {
       let indexCuillere = this.tCuilleres.indexOf(index);
       this.tCuilleres.splice(indexCuillere, 1);
 
-      this.creerCuillere();
+      //this.creerCuillere();
+      window.setTimeout(this.ressusciterCuillere.bind(this), 1000);
    }
+
+   public ressusciterCuillere():void {
+      let yHasard:number = Math.floor(Math.random() * 600) + 300;
+      this.tCuilleres.push(new Cuillere(this.refScene, 800, yHasard, 4, this));
+   }
+
+
+
+
 
    public creerDecorFixe():void {
       this.decorFixe = new DecorFixe(this.refScene , 0, 0, this, 2); 
@@ -123,7 +138,11 @@ export class Jeu {
    }
 
 
-
+   //Gestion des scores
+   public gererScore(iScore:number):void {
+      //console.log('incrementation du score');
+      this.GUI.incrementerScore(iScore);
+   }
 
 
 

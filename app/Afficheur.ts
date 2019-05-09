@@ -6,9 +6,12 @@ import {ObjVisible} from './ObjVisible';
 export class Afficheur extends ObjVisible {
 
     private score:number = 0;
+    private refJeu:Jeu = null;
 
-    public constructor(refScene:createjs.Stage, posX:number, posY:number) {
+    public constructor(refScene:createjs.Stage, posX:number, posY:number, refJeu:Jeu) {
         super(refScene, posX, posY);
+
+        this.refJeu = refJeu;
 
         this.gotoAndStop('normal');
     }
@@ -20,5 +23,16 @@ export class Afficheur extends ObjVisible {
 
     public gererVies(nbVies:number, nbPoints:number):void {
         this['afficheur_vies'].gotoAndStop(`${nbVies}_vies_${nbPoints}_points`);
+    }
+
+    public incrementerScore(iScore:number):void {
+        this.score += iScore;
+
+        this['afficheur_score'].Text = this.score;
+        console.log(`score: ${this.score}`);
+    }
+
+    public reset():void {
+
     }
 }
