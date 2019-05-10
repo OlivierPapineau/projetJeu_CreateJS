@@ -13,6 +13,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             this.estDemarre = false;
             this.tDecorDefilant = [];
             this.decorFixe = null;
+            this.intNiveau = 1;
             //Gestion des personnages
             this.refMinuterieAssiette = null;
             this.refMinuterieCuillere = null;
@@ -47,12 +48,21 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
                 this.refMinuterieAssiette = window.setInterval(this.creerAssiette.bind(this), 1000 * 1.7);
             }
         };
+        /*************************************************************/
+        //GESTION DE L'INTERFACE
+        /*************************************************************/
         Jeu.prototype.creerGUI = function () {
             this.GUI = new Afficheur_1.Afficheur(this.refScene, 0, 0, this);
         };
+        /*************************************************************/
+        //GESTION DU PROTAGONISTE
+        /*************************************************************/
         Jeu.prototype.creerProtagoniste = function () {
             this.protagoniste = new Protagoniste_1.Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes, this, this.GUI);
         };
+        /*************************************************************/
+        //GESTION DES OBSTACLES
+        /*************************************************************/
         Jeu.prototype.creerAssiette = function () {
             var yHasard = Math.floor(Math.random() * 600) + 300;
             if (this.tAssiettes.length == this.nbAssiettes - 1) {
@@ -61,6 +71,9 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             }
             this.tAssiettes.push(new Assiette_1.Assiette(this.refScene, 800, yHasard, 2));
         };
+        /*************************************************************/
+        //GESTION DES ANTAGONISTES
+        /*************************************************************/
         Jeu.prototype.creerCuillere = function () {
             var yHasard = Math.floor(Math.random() * 600) + 300;
             //Gestion de la generation d'antagonistes
@@ -82,12 +95,15 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             var yHasard = Math.floor(Math.random() * 600) + 300;
             this.tCuilleres.push(new Cuillere_1.Cuillere(this.refScene, 800, yHasard, 4, this));
         };
+        /*************************************************************/
+        //GESTION DES DECORS
+        /*************************************************************/
         Jeu.prototype.creerDecorFixe = function () {
-            this.decorFixe = new DecorFixe_1.DecorFixe(this.refScene, 0, 0, this, 2);
+            this.decorFixe = new DecorFixe_1.DecorFixe(this.refScene, 0, 0, this, this.intNiveau);
         };
         Jeu.prototype.creerDecorDefilant = function () {
-            this.tDecorDefilant[0] = new DecorDefilant_1.DecorDefilant(this.refScene, 800, 0, 1, this, 2);
-            this.tDecorDefilant[1] = new DecorDefilant_1.DecorDefilant(this.refScene, 1600, 0, 1, this, 2);
+            this.tDecorDefilant[0] = new DecorDefilant_1.DecorDefilant(this.refScene, 800, 0, 1, this, this.intNiveau);
+            this.tDecorDefilant[1] = new DecorDefilant_1.DecorDefilant(this.refScene, 1600, 0, 1, this, this.intNiveau);
         };
         Jeu.prototype.creerProjectile = function (posX, posY) {
             this.tProjectiles.push(new Projectile_1.Projectile(this.refScene, posX, posY, this.vitesseProjectile, this, this.tCuilleres));
@@ -97,23 +113,42 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             //console.log('incrementation du score');
             this.GUI.incrementerScore(iScore);
         };
-        //En construction...
+        /*************************************************************/
+        //GESTION DES NIVEAUX
+        /*************************************************************/
+        Jeu.prototype.gererNiveaux = function (score) {
+            if (this.intNiveau == 1) {
+                if (score == 150) {
+                    this.arreter();
+                    this.intNiveau = 2;
+                    window.setTimeout(this.demarrer.bind(this), 3000);
+                }
+            }
+            if (this.intNiveau == 2) {
+                if (score == 300) {
+                    this.arreter();
+                }
+            }
+        };
+        /*************************************************************/
+        //DESTRUCTEUR
+        /*************************************************************/
         Jeu.prototype.arreter = function () {
             this.estDemarre = false;
             this.refMinuterieAssiette = null;
             for (var i = 0; i < this.tAssiettes.length; i++) {
                 this.tAssiettes[i].arreterAssiette();
             }
-            this.tAssiettes = null;
+            this.tAssiettes = [];
             this.refMinuterieCuillere = null;
             for (var i = 0; i < this.tCuilleres.length; i++) {
                 this.tCuilleres[i].arreterCuillere();
             }
-            this.tCuilleres = null;
+            this.tCuilleres = [];
             for (var i = 0; i < this.tDecorDefilant.length; i++) {
                 this.tDecorDefilant[i].arreterDefilant();
             }
-            this.tDecorDefilant = null;
+            this.tDecorDefilant = [];
             this.protagoniste = null;
         };
         return Jeu;

@@ -141,7 +141,8 @@ export class Protagoniste extends ObjVisible {
   private mourir():void {
     super.arreter();
     window.clearInterval();
-    this.refJeu.arreter()
+    this.refJeu.arreter();
+    //this.refJeu.perdrePartie();
   }
 
   /*************************************************************/

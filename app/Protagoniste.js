@@ -121,6 +121,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             _super.prototype.arreter.call(this);
             window.clearInterval();
             this.refJeu.arreter();
+            //this.refJeu.perdrePartie();
         };
         /*************************************************************/
         //GESTION DES PROJECTILES

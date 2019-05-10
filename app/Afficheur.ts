@@ -28,8 +28,10 @@ export class Afficheur extends ObjVisible {
     public incrementerScore(iScore:number):void {
         this.score += iScore;
 
-        this['afficheur_score'].Text = this.score;
+        this['afficheur_score']['score'].text = this.score;
         console.log(`score: ${this.score}`);
+
+        this.refJeu.gererNiveaux(this.score);
     }
 
     public reset():void {

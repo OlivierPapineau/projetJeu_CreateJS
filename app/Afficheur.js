@@ -33,8 +33,9 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         };
         Afficheur.prototype.incrementerScore = function (iScore) {
             this.score += iScore;
-            this['afficheur_score'].Text = this.score;
+            this['afficheur_score']['score'].text = this.score;
             console.log("score: " + this.score);
+            this.refJeu.gererNiveaux(this.score);
         };
         Afficheur.prototype.reset = function () {
         };

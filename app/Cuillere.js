@@ -37,6 +37,7 @@ define(["require", "exports", "./ObjMobile"], function (require, exports, ObjMob
             //super.arreter();
         };
         Cuillere.prototype.arreterCuillere = function () {
+            console.log('ARRETER CUILLERE');
             _super.prototype.arreter.call(this);
         };
         return Cuillere;

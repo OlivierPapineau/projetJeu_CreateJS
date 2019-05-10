@@ -21,7 +21,7 @@ export class Cuillere extends ObjMobile {
     this.frameBounds = window.lib.clipCuillere.prototype.framebounds;
   }
 
-  private mourir():void {
+  public mourir():void {
     this.gotoAndPlay('mort');
     window.clearInterval();
     
@@ -34,6 +34,7 @@ export class Cuillere extends ObjMobile {
   }
 
   public arreterCuillere():void {
+    console.log('ARRETER CUILLERE');
     super.arreter();
   }
 

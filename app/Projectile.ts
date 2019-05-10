@@ -16,9 +16,7 @@ export class Projectile extends ObjVisible {
         this.refJeu = refJeu;
         this.tCuilleres = ref_tCuilleres;
 
-        //this.setBounds(this.x, this.y, 50, 29.2);
         this.addEventListener('tick', this.avancer_lier);
-        //window.setInterval(this.detecterCollision.bind(this), 1000/30);
         
         this.play();
     }
@@ -50,18 +48,17 @@ export class Projectile extends ObjVisible {
 
             if(hitBox.intersects(hitBoxCuillere)) {
                 console.log('COLLISION');
-                this.tCuilleres[i].arreterCuillere();
-                this.refJeu.detruireCuillere(i);
+                this.tCuilleres[i].mourir();
+                //this.refJeu.detruireCuillere(i);
                 this.refJeu.gererScore(50);
+
+                this.arreter();
             }
         }
     }
 
-    private transpercer():void {
-        
-    }
-
     public arreter():void {
+        this.removeEventListener('tick', this.avancer_lier);
         super.arreter();
     }
 }

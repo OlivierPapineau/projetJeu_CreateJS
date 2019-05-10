@@ -24,9 +24,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             Projectile.vitesse = vitesse;
             _this.refJeu = refJeu;
             _this.tCuilleres = ref_tCuilleres;
-            //this.setBounds(this.x, this.y, 50, 29.2);
             _this.addEventListener('tick', _this.avancer_lier);
-            //window.setInterval(this.detecterCollision.bind(this), 1000/30);
             _this.play();
             return _this;
         }
@@ -53,15 +51,15 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
                 var hitBoxCuillere = this.tCuilleres[i].getTransformedBounds();
                 if (hitBox.intersects(hitBoxCuillere)) {
                     console.log('COLLISION');
-                    this.tCuilleres[i].arreterCuillere();
-                    this.refJeu.detruireCuillere(i);
+                    this.tCuilleres[i].mourir();
+                    //this.refJeu.detruireCuillere(i);
                     this.refJeu.gererScore(50);
+                    this.arreter();
                 }
             }
         };
-        Projectile.prototype.transpercer = function () {
-        };
         Projectile.prototype.arreter = function () {
+            this.removeEventListener('tick', this.avancer_lier);
             _super.prototype.arreter.call(this);
         };
         Projectile.vitesse = null;
