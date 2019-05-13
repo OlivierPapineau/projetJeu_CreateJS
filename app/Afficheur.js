@@ -38,6 +38,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             this.refJeu.gererNiveaux(this.score);
         };
         Afficheur.prototype.reset = function () {
+            _super.prototype.arreter.call(this);
         };
         return Afficheur;
     }(ObjVisible_1.ObjVisible));

@@ -1,4 +1,4 @@
-define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./DecorFixe", "./DecorDefilant", "./Projectile", "./Afficheur"], function (require, exports, Protagoniste_1, Assiette_1, Cuillere_1, DecorFixe_1, DecorDefilant_1, Projectile_1, Afficheur_1) {
+define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./DecorFixe", "./DecorDefilant", "./Projectile", "./Afficheur", "./EcranNiveau", "./EcranIntro", "./EcranRetro"], function (require, exports, Protagoniste_1, Assiette_1, Cuillere_1, DecorFixe_1, DecorDefilant_1, Projectile_1, Afficheur_1, EcranNiveau_1, EcranIntro_1, EcranRetro_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Jeu = /** @class */ (function () {
@@ -8,6 +8,10 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
              */
             //Gestion de l'interface graphique
             this.GUI = null;
+            //Gestion des ecrans tierces
+            this.ecranIntro = null;
+            this.ecranNiveau = null;
+            this.ecranRetroaction = null;
             //Gestion du jeu
             this.refScene = null;
             this.estDemarre = false;
@@ -28,8 +32,12 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             //Gestion du protagoniste
             this.protagoniste = null;
             this.refScene = refScene;
-            this.demarrer();
+            this.introduire();
+            //this.demarrer();
         }
+        /*************************************************************/
+        //GESTION DU DEBUT DU JEU
+        /*************************************************************/
         Jeu.prototype.demarrer = function () {
             this.estDemarre = true;
             //Decors
@@ -47,6 +55,17 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             if (this.refMinuterieAssiette === null) {
                 this.refMinuterieAssiette = window.setInterval(this.creerAssiette.bind(this), 1000 * 1.7);
             }
+        };
+        Jeu.prototype.introduire = function () {
+            this.ecranIntro = new EcranIntro_1.EcranIntro(this.refScene, 0, 0, this);
+        };
+        Jeu.prototype.montrerNiveau = function () {
+            var niveau = this.intNiveau;
+            this.ecranNiveau = new EcranNiveau_1.EcranNiveau(this.refScene, 0, 0, this, niveau);
+            window.setTimeout(this.demarrer.bind(this), 3000);
+            // if(this.ecranIntro != null || this.ecranIntro != undefined) {
+            //   window.setTimeout(this.ecranNiveau.arreterEcranNiveau(), 3000);
+            // }
         };
         /*************************************************************/
         //GESTION DE L'INTERFACE
@@ -121,34 +140,42 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
                 if (score == 150) {
                     this.arreter();
                     this.intNiveau = 2;
+                    this.montrerNiveau();
                     window.setTimeout(this.demarrer.bind(this), 3000);
                 }
             }
             if (this.intNiveau == 2) {
                 if (score == 300) {
                     this.arreter();
+                    this.ecranRetroaction = new EcranRetro_1.EcranRetro(this.refScene, 0, 0, this, 'victoire');
                 }
             }
+        };
+        Jeu.prototype.perdrePartie = function () {
+            this.ecranRetroaction = new EcranRetro_1.EcranRetro(this.refScene, 0, 0, this, 'defaite');
         };
         /*************************************************************/
         //DESTRUCTEUR
         /*************************************************************/
         Jeu.prototype.arreter = function () {
             this.estDemarre = false;
+            this.GUI.reset();
+            this.GUI = null;
             this.refMinuterieAssiette = null;
             for (var i = 0; i < this.tAssiettes.length; i++) {
                 this.tAssiettes[i].arreterAssiette();
             }
-            this.tAssiettes = [];
+            this.tAssiettes.splice(0);
             this.refMinuterieCuillere = null;
             for (var i = 0; i < this.tCuilleres.length; i++) {
                 this.tCuilleres[i].arreterCuillere();
             }
-            this.tCuilleres = [];
+            this.tCuilleres.splice(0);
             for (var i = 0; i < this.tDecorDefilant.length; i++) {
                 this.tDecorDefilant[i].arreterDefilant();
             }
             this.tDecorDefilant = [];
+            this.protagoniste.arreterProtagoniste();
             this.protagoniste = null;
         };
         return Jeu;

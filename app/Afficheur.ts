@@ -35,6 +35,6 @@ export class Afficheur extends ObjVisible {
     }
 
     public reset():void {
-
+        super.arreter();
     }
 }

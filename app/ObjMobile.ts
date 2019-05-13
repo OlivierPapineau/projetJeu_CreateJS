@@ -25,11 +25,11 @@ export abstract class ObjMobile extends ObjVisible {
     this.x += this.sens * this.vitesse;
   }
 
-  protected abstract gererFinScene():void;
 
   protected arreter() {
-     super.arreter();
-     this.removeEventListener('tick', this.avancer_lier);
+    this.vitesse = 0;
+    super.arreter();
+    this.removeEventListener('tick', this.avancer_lier);
   }
 
 }

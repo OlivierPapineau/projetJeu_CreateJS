@@ -5,6 +5,9 @@ import {DecorFixe} from './DecorFixe';
 import {DecorDefilant} from './DecorDefilant';
 import {Projectile} from './Projectile';
 import {Afficheur} from './Afficheur';
+import { EcranNiveau } from './EcranNiveau';
+import { EcranIntro } from './EcranIntro';
+import { EcranRetro } from './EcranRetro';
 
 export class Jeu {
 
@@ -15,6 +18,11 @@ export class Jeu {
 
   //Gestion de l'interface graphique
   private GUI = null;
+
+  //Gestion des ecrans tierces
+  private ecranIntro = null;
+  private ecranNiveau = null;
+  private ecranRetroaction = null;
 
   //Gestion du jeu
   private refScene = null;
@@ -41,8 +49,14 @@ export class Jeu {
 
   public constructor(refScene:createjs.Stage) {
     this.refScene = refScene;
-    this.demarrer();
+
+    this.introduire();
+    //this.demarrer();
   }
+
+  /*************************************************************/
+  //GESTION DU DEBUT DU JEU
+  /*************************************************************/
 
   public demarrer():void {
     this.estDemarre = true;
@@ -56,7 +70,7 @@ export class Jeu {
 
     //Antagoniste
     if(this.refMinuterieCuillere === null) {
-    this.refMinuterieCuillere = window.setInterval(this.creerCuillere.bind(this), 1000*1.2);
+      this.refMinuterieCuillere = window.setInterval(this.creerCuillere.bind(this), 1000*1.2);
     }
 
     //Protagoniste
@@ -67,7 +81,22 @@ export class Jeu {
       this.refMinuterieAssiette = window.setInterval(this.creerAssiette.bind(this), 1000*1.7);
     }
 
-   }
+  }
+
+  public introduire():void {
+    this.ecranIntro = new EcranIntro(this.refScene, 0, 0, this);
+  }
+
+  public montrerNiveau():void {
+    let niveau = this.intNiveau;
+    this.ecranNiveau = new EcranNiveau(this.refScene, 0, 0, this, niveau);
+
+    window.setTimeout(this.demarrer.bind(this), 3000);
+
+    // if(this.ecranIntro != null || this.ecranIntro != undefined) {
+    //   window.setTimeout(this.ecranNiveau.arreterEcranNiveau(), 3000);
+    // }
+  }
 
   /*************************************************************/
   //GESTION DE L'INTERFACE
@@ -170,14 +199,21 @@ export class Jeu {
 
 
         this.intNiveau = 2;
+
+        this.montrerNiveau();
         window.setTimeout(this.demarrer.bind(this), 3000);
       }
     }
     if(this.intNiveau == 2) {
       if(score == 300) {
         this.arreter();
+        this.ecranRetroaction = new EcranRetro(this.refScene, 0, 0, this, 'victoire');
       }
     }
+  }
+
+  public perdrePartie():void {
+    this.ecranRetroaction = new EcranRetro(this.refScene, 0, 0, this, 'defaite');
   }
 
 
@@ -188,17 +224,20 @@ export class Jeu {
   public arreter() {
     this.estDemarre = false;
 
+    this.GUI.reset();
+    this.GUI = null;
+
     this.refMinuterieAssiette = null;
     for(let i = 0; i < this.tAssiettes.length; i++) {
       this.tAssiettes[i].arreterAssiette();
     }
-    this.tAssiettes = [];
+    this.tAssiettes.splice(0);
   
     this.refMinuterieCuillere = null;
     for(let i = 0; i < this.tCuilleres.length; i++) {
       this.tCuilleres[i].arreterCuillere();
     }
-    this.tCuilleres = [];
+    this.tCuilleres.splice(0);
 
     for(let i = 0; i < this.tDecorDefilant.length; i++) {
       this.tDecorDefilant[i].arreterDefilant();
@@ -206,6 +245,7 @@ export class Jeu {
     this.tDecorDefilant = [];
 
 
+    this.protagoniste.arreterProtagoniste();
     this.protagoniste = null;
 
   }

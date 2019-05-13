@@ -120,8 +120,10 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         Protagoniste.prototype.mourir = function () {
             _super.prototype.arreter.call(this);
             window.clearInterval();
+            window.onkeydown = null;
+            window.onkeyup = null;
             this.refJeu.arreter();
-            //this.refJeu.perdrePartie();
+            this.refJeu.perdrePartie();
         };
         /*************************************************************/
         //GESTION DES PROJECTILES
@@ -225,6 +227,12 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
                     this.y = this.y + 4;
                 }
             }
+        };
+        Protagoniste.prototype.arreterProtagoniste = function () {
+            window.clearInterval(1000 / 5);
+            window.onkeydown = null;
+            window.onkeyup = null;
+            _super.prototype.arreter.call(this);
         };
         Protagoniste.tLimitesDeplacements = {
             haut: 300,

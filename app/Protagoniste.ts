@@ -141,8 +141,10 @@ export class Protagoniste extends ObjVisible {
   private mourir():void {
     super.arreter();
     window.clearInterval();
+    window.onkeydown = null;
+    window.onkeyup = null;
     this.refJeu.arreter();
-    //this.refJeu.perdrePartie();
+    this.refJeu.perdrePartie();
   }
 
   /*************************************************************/
@@ -262,5 +264,12 @@ export class Protagoniste extends ObjVisible {
         this.y = this.y + 4;
       }
     }
+  }
+
+  public arreterProtagoniste():void {
+    window.clearInterval(1000/5);
+    window.onkeydown = null;
+    window.onkeyup = null;
+    super.arreter();
   }
 }
