@@ -59,6 +59,8 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             if (this.refMinuterieAssiette === null) {
                 this.refMinuterieAssiette = window.setInterval(this.creerAssiette.bind(this), 1000 * 1.7);
             }
+            //Gestion de la profondeur des objets
+            createjs.Ticker.addEventListener("tick", this.gererProfondeur.bind(this));
         };
         Jeu.prototype.introduire = function () {
             this.ecranIntro = new EcranIntro_1.EcranIntro(this.refScene, 0, 0, this, -1);
@@ -74,17 +76,17 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
         /*************************************************************/
         //GESTION DE LA PROFONDEUR
         /*************************************************************/
-        // private gererProfondeur():void {
-        //   this.refScene.sortChildren(this.comparerY.bind(this));
-        // }
-        // private comparerY(a:any, b:any):number {
-        //   if(a.y > b.y)
-        //     return 1;
-        //   else if (a.y < b.y)
-        //     return -1;
-        //   else
-        //     return 0;
-        // }
+        Jeu.prototype.gererProfondeur = function () {
+            this.refScene.sortChildren(this.comparerY.bind(this));
+        };
+        Jeu.prototype.comparerY = function (a, b) {
+            if (a.y > b.y)
+                return 1;
+            else if (a.y < b.y)
+                return -1;
+            else
+                return 0;
+        };
         /*************************************************************/
         //GESTION DE L'INTERFACE
         /*************************************************************/

@@ -86,6 +86,9 @@ export class Jeu {
       this.refMinuterieAssiette = window.setInterval(this.creerAssiette.bind(this), 1000*1.7);
     }
 
+    //Gestion de la profondeur des objets
+    createjs.Ticker.addEventListener("tick", this.gererProfondeur.bind(this));
+
 
   }
 
@@ -108,18 +111,18 @@ export class Jeu {
   //GESTION DE LA PROFONDEUR
   /*************************************************************/
 
-  // private gererProfondeur():void {
-  //   this.refScene.sortChildren(this.comparerY.bind(this));
-  // }
+  private gererProfondeur():void {
+    this.refScene.sortChildren(this.comparerY.bind(this));
+  }
 
-  // private comparerY(a:any, b:any):number {
-  //   if(a.y > b.y)
-  //     return 1;
-  //   else if (a.y < b.y)
-  //     return -1;
-  //   else
-  //     return 0;
-  // }
+  private comparerY(a:any, b:any):number {
+    if(a.y > b.y)
+      return 1;
+    else if (a.y < b.y)
+      return -1;
+    else
+      return 0;
+  }
 
 
   /*************************************************************/

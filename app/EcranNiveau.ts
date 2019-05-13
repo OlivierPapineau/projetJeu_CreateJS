@@ -5,8 +5,8 @@ export class EcranNiveau extends ObjVisible {
 
     private refJeu:Jeu = null;
 
-    public constructor(refScene:createjs.Stage, posX:number, posY:number, refJeu:Jeu, niveau:number) {
-        super(refScene, posX, posY);
+    public constructor(refScene:createjs.Stage, posX:number, posY:number, refJeu:Jeu, niveau:number, redimMax:number) {
+        super(refScene, posX, posY, redimMax);
 
         this.refJeu = refJeu;
 

@@ -16,8 +16,8 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
     Object.defineProperty(exports, "__esModule", { value: true });
     var EcranNiveau = /** @class */ (function (_super) {
         __extends(EcranNiveau, _super);
-        function EcranNiveau(refScene, posX, posY, refJeu, niveau) {
-            var _this = _super.call(this, refScene, posX, posY) || this;
+        function EcranNiveau(refScene, posX, posY, refJeu, niveau, redimMax) {
+            var _this = _super.call(this, refScene, posX, posY, redimMax) || this;
             _this.refJeu = null;
             _this.refJeu = refJeu;
             console.log(niveau);

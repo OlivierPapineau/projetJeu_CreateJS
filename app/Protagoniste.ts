@@ -243,27 +243,27 @@ export class Protagoniste extends ObjVisible {
   private faireBougerProtago():void {
     if(this.tTouches[0] == true) {
       if(this.x >= Protagoniste.tLimitesDeplacements.gauche) {
-        this.x = this.x - 4;
+        this.x = this.x - 6;
       }
     }
 
     if(this.tTouches[1] == true){
       if(this.y >= Protagoniste.tLimitesDeplacements.haut) {
-        this.y = this.y - 4;
+        this.y = this.y - 6;
       }
     }
 
     //flèche droite
     if(this.tTouches[2] == true){
       if(this.x <= Protagoniste.tLimitesDeplacements.droite) {
-        this.x = this.x + 4;
+        this.x = this.x + 6;
       }
     }
 
     //flèche bas
     if(this.tTouches[3] == true){
       if(this.y <= Protagoniste.tLimitesDeplacements.bas) {
-        this.y = this.y + 4;
+        this.y = this.y + 6;
       }
     }
 
