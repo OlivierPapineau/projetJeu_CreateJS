@@ -8,8 +8,8 @@ export class DecorDefilant extends ObjVisible {
     private avancer_lier = this.avancer.bind(this);
     private limiteScene:number = -800;
 
-    public constructor(refScene:createjs.Stage, posX:number, posY:number, vitesse:number, refJeu:Jeu, niveau:number) {
-        super(refScene, posX, posY);
+    public constructor(refScene:createjs.Stage, posX:number, posY:number, vitesse:number, refJeu:Jeu, niveau:number, redimMax:number) {
+        super(refScene, posX, posY, redimMax);
 
         this.vitesse = vitesse;
 

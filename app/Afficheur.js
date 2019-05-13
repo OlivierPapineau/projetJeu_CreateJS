@@ -16,8 +16,8 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
     Object.defineProperty(exports, "__esModule", { value: true });
     var Afficheur = /** @class */ (function (_super) {
         __extends(Afficheur, _super);
-        function Afficheur(refScene, posX, posY, refJeu) {
-            var _this = _super.call(this, refScene, posX, posY) || this;
+        function Afficheur(refScene, posX, posY, refJeu, redimMax) {
+            var _this = _super.call(this, refScene, posX, posY, redimMax) || this;
             _this.score = 0;
             _this.refJeu = null;
             _this.refJeu = refJeu;

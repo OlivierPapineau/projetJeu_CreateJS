@@ -16,8 +16,8 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
     Object.defineProperty(exports, "__esModule", { value: true });
     var Projectile = /** @class */ (function (_super) {
         __extends(Projectile, _super);
-        function Projectile(refScene, posX, posY, vitesse, refJeu, ref_tCuilleres) {
-            var _this = _super.call(this, refScene, posX, posY) || this;
+        function Projectile(refScene, posX, posY, vitesse, refJeu, ref_tCuilleres, redimMax) {
+            var _this = _super.call(this, refScene, posX, posY, redimMax) || this;
             _this.avancer_lier = _this.avancer.bind(_this);
             _this.refJeu = null;
             _this.tCuilleres = [];

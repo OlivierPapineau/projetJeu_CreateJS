@@ -5,8 +5,8 @@ export class DecorFixe extends ObjVisible {
 
     //private niveau:number = null;
 
-    public constructor(refScene:createjs.Stage, posX:number, posY:number, refJeu:Jeu, niveau:number) {
-        super(refScene, posX, posY);
+    public constructor(refScene:createjs.Stage, posX:number, posY:number, refJeu:Jeu, niveau:number, redimMax:number) {
+        super(refScene, posX, posY, redimMax);
 
         //this.dessiner();
 

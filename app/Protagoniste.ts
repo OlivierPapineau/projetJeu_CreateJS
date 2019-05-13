@@ -33,8 +33,9 @@ export class Protagoniste extends ObjVisible {
   //private tCuilleres = null;
   //private refVies = null;
 
-  public constructor(refScene:createjs.Stage, posX:number, posY:number, tCuilleres:Array<Cuillere>, tAssiettes:Array<Assiette>, jeu:Jeu, gui:Afficheur) {
-    super(refScene, posX, posY);
+  public constructor(refScene:createjs.Stage, posX:number, posY:number, tCuilleres:Array<Cuillere>, tAssiettes:Array<Assiette>, jeu:Jeu, gui:Afficheur, uneRedimMax:number) {
+    super(refScene, posX, posY, uneRedimMax);
+
 
     //Animations
     this.gotoAndPlay('marche');
@@ -58,6 +59,7 @@ export class Protagoniste extends ObjVisible {
     for(let intCpt:number = 0; intCpt <= 3; intCpt++) {
       this.tTouches[intCpt] = false;
     }
+
   }
 
   /*************************************************************/
@@ -264,6 +266,8 @@ export class Protagoniste extends ObjVisible {
         this.y = this.y + 4;
       }
     }
+
+    super.redimensionner();
   }
 
   public arreterProtagoniste():void {

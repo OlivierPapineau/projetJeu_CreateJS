@@ -9,8 +9,8 @@ export class Projectile extends ObjVisible {
     private refJeu:Jeu = null;
     private tCuilleres:Array<Cuillere> = [];
 
-    public constructor(refScene:createjs.Stage, posX:number, posY:number, vitesse:number, refJeu:Jeu, ref_tCuilleres:Array<Cuillere>) {
-        super(refScene, posX, posY);
+    public constructor(refScene:createjs.Stage, posX:number, posY:number, vitesse:number, refJeu:Jeu, ref_tCuilleres:Array<Cuillere>, redimMax:number) {
+        super(refScene, posX, posY, redimMax);
 
         Projectile.vitesse = vitesse;
         this.refJeu = refJeu;

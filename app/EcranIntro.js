@@ -16,8 +16,8 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
     Object.defineProperty(exports, "__esModule", { value: true });
     var EcranIntro = /** @class */ (function (_super) {
         __extends(EcranIntro, _super);
-        function EcranIntro(refScene, posX, posY, refJeu) {
-            var _this = _super.call(this, refScene, posX, posY) || this;
+        function EcranIntro(refScene, posX, posY, refJeu, redimMax) {
+            var _this = _super.call(this, refScene, posX, posY, redimMax) || this;
             _this.refJeu = null;
             _this.pageSuivant_lier = _this.pageSuivant.bind(_this);
             _this.pagePrecedent_lier = _this.pagePrecedent.bind(_this);

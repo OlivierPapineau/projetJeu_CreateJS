@@ -8,8 +8,8 @@ export class Afficheur extends ObjVisible {
     private score:number = 0;
     private refJeu:Jeu = null;
 
-    public constructor(refScene:createjs.Stage, posX:number, posY:number, refJeu:Jeu) {
-        super(refScene, posX, posY);
+    public constructor(refScene:createjs.Stage, posX:number, posY:number, refJeu:Jeu, redimMax:number) {
+        super(refScene, posX, posY, redimMax);
 
         this.refJeu = refJeu;
 

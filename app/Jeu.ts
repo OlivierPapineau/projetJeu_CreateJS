@@ -5,9 +5,9 @@ import {DecorFixe} from './DecorFixe';
 import {DecorDefilant} from './DecorDefilant';
 import {Projectile} from './Projectile';
 import {Afficheur} from './Afficheur';
-import { EcranNiveau } from './EcranNiveau';
-import { EcranIntro } from './EcranIntro';
-import { EcranRetro } from './EcranRetro';
+import {EcranNiveau} from './EcranNiveau';
+import {EcranIntro} from './EcranIntro';
+import {EcranRetro} from './EcranRetro';
 
 export class Jeu {
 
@@ -61,6 +61,11 @@ export class Jeu {
   public demarrer():void {
     this.estDemarre = true;
 
+    //Gestion des tableaux
+    this.tCuilleres = [];
+    this.tAssiettes = [];
+    this.tDecorDefilant = [];
+
     //Decors
     this.creerDecorFixe();
     this.creerDecorDefilant();
@@ -81,15 +86,16 @@ export class Jeu {
       this.refMinuterieAssiette = window.setInterval(this.creerAssiette.bind(this), 1000*1.7);
     }
 
+
   }
 
   public introduire():void {
-    this.ecranIntro = new EcranIntro(this.refScene, 0, 0, this);
+    this.ecranIntro = new EcranIntro(this.refScene, 0, 0, this, -1);
   }
 
   public montrerNiveau():void {
     let niveau = this.intNiveau;
-    this.ecranNiveau = new EcranNiveau(this.refScene, 0, 0, this, niveau);
+    this.ecranNiveau = new EcranNiveau(this.refScene, 0, 0, this, niveau, -1);
 
     window.setTimeout(this.demarrer.bind(this), 3000);
 
@@ -99,11 +105,29 @@ export class Jeu {
   }
 
   /*************************************************************/
+  //GESTION DE LA PROFONDEUR
+  /*************************************************************/
+
+  // private gererProfondeur():void {
+  //   this.refScene.sortChildren(this.comparerY.bind(this));
+  // }
+
+  // private comparerY(a:any, b:any):number {
+  //   if(a.y > b.y)
+  //     return 1;
+  //   else if (a.y < b.y)
+  //     return -1;
+  //   else
+  //     return 0;
+  // }
+
+
+  /*************************************************************/
   //GESTION DE L'INTERFACE
   /*************************************************************/  
 
   public creerGUI():void {
-    this.GUI = new Afficheur(this.refScene, 0, 0, this);
+    this.GUI = new Afficheur(this.refScene, 0, 0, this, -1);
   }
 
   /*************************************************************/
@@ -111,7 +135,7 @@ export class Jeu {
   /*************************************************************/ 
 
   public creerProtagoniste():void {
-    this.protagoniste = new Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes, this, this.GUI);
+    this.protagoniste = new Protagoniste(this.refScene, 125, 400, this.tCuilleres, this.tAssiettes, this, this.GUI, 1);
   }
 
   /*************************************************************/
@@ -125,7 +149,7 @@ export class Jeu {
       console.log('nombre maximal atteint');
       window.clearInterval(this.refMinuterieAssiette);
     }
-    this.tAssiettes.push(new Assiette(this.refScene, 800, yHasard, 2));
+    this.tAssiettes.push(new Assiette(this.refScene, 800, yHasard, 2, 1));
   }
 
   /*************************************************************/
@@ -143,7 +167,7 @@ export class Jeu {
     }
 
     //Instanciation de l'objet
-    this.tCuilleres.push(new Cuillere(this.refScene, 800, yHasard, 4, this));
+    this.tCuilleres.push(new Cuillere(this.refScene, 800, yHasard, 4, this, -1));
 
     //console.log(`Tableau de cuilleres: ${this.tCuilleres}`);
   }
@@ -159,7 +183,7 @@ export class Jeu {
 
   public ressusciterCuillere():void {
     let yHasard:number = Math.floor(Math.random() * 600) + 300;
-    this.tCuilleres.push(new Cuillere(this.refScene, 800, yHasard, 4, this));
+    this.tCuilleres.push(new Cuillere(this.refScene, 800, yHasard, 4, this, 1));
   }
 
 
@@ -169,16 +193,16 @@ export class Jeu {
   /*************************************************************/
 
   public creerDecorFixe():void {
-    this.decorFixe = new DecorFixe(this.refScene , 0, 0, this, this.intNiveau); 
+    this.decorFixe = new DecorFixe(this.refScene , 0, 0, this, this.intNiveau, -1); 
   }
 
   public creerDecorDefilant():void {
-    this.tDecorDefilant[0] = new DecorDefilant(this.refScene, 800, 0, 1, this, this.intNiveau);
-    this.tDecorDefilant[1] = new DecorDefilant(this.refScene, 1600, 0, 1,this, this.intNiveau);
+    this.tDecorDefilant[0] = new DecorDefilant(this.refScene, 800, 0, 1, this, this.intNiveau, -1);
+    this.tDecorDefilant[1] = new DecorDefilant(this.refScene, 1600, 0, 1,this, this.intNiveau, -1);
   }
 
   public creerProjectile(posX:number, posY:number) {
-    this.tProjectiles.push(new Projectile(this.refScene, posX, posY, this.vitesseProjectile, this, this.tCuilleres));
+    this.tProjectiles.push(new Projectile(this.refScene, posX, posY, this.vitesseProjectile, this, this.tCuilleres, 1));
   }
 
 
@@ -194,9 +218,8 @@ export class Jeu {
   /*************************************************************/
   public gererNiveaux(score:number):void {
     if(this.intNiveau == 1) {
-      if(score == 150) {
+      if(score == 2000) {
         this.arreter();
-
 
         this.intNiveau = 2;
 
@@ -205,7 +228,7 @@ export class Jeu {
       }
     }
     if(this.intNiveau == 2) {
-      if(score == 300) {
+      if(score == 3000) {
         this.arreter();
         this.ecranRetroaction = new EcranRetro(this.refScene, 0, 0, this, 'victoire');
       }
@@ -231,18 +254,19 @@ export class Jeu {
     for(let i = 0; i < this.tAssiettes.length; i++) {
       this.tAssiettes[i].arreterAssiette();
     }
-    this.tAssiettes.splice(0);
+    this.tAssiettes = null;
+    console.log(this.tAssiettes);
   
     this.refMinuterieCuillere = null;
     for(let i = 0; i < this.tCuilleres.length; i++) {
       this.tCuilleres[i].arreterCuillere();
     }
-    this.tCuilleres.splice(0);
+    this.tCuilleres = null;
 
     for(let i = 0; i < this.tDecorDefilant.length; i++) {
       this.tDecorDefilant[i].arreterDefilant();
     }
-    this.tDecorDefilant = [];
+    this.tDecorDefilant = null;
 
 
     this.protagoniste.arreterProtagoniste();

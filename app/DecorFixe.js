@@ -17,8 +17,8 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
     var DecorFixe = /** @class */ (function (_super) {
         __extends(DecorFixe, _super);
         //private niveau:number = null;
-        function DecorFixe(refScene, posX, posY, refJeu, niveau) {
-            var _this = _super.call(this, refScene, posX, posY) || this;
+        function DecorFixe(refScene, posX, posY, refJeu, niveau, redimMax) {
+            var _this = _super.call(this, refScene, posX, posY, redimMax) || this;
             //this.dessiner();
             _this.gotoAndStop("niveau_" + niveau);
             return _this;

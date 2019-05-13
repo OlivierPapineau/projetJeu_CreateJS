@@ -7,9 +7,8 @@ export class Cuillere extends ObjMobile {
 
   private ref_Jeu = null;
 
-  public constructor(refScene:createjs.Stage, posX:number, posY:number, vitesse:number, jeu:Jeu) {
-    super(refScene, posX, posY, vitesse);
-
+  public constructor(refScene:createjs.Stage, posX:number, posY:number, vitesse:number, jeu:Jeu, redimMax:number) {
+    super(refScene, posX, posY, vitesse, redimMax);
     this.ref_Jeu = jeu;
 
     this.gotoAndPlay('marche');
@@ -20,6 +19,7 @@ export class Cuillere extends ObjMobile {
     window.lib.clipCuillere.call(this);
     this.frameBounds = window.lib.clipCuillere.prototype.framebounds;
   }
+
 
   public mourir():void {
     this.gotoAndPlay('mort');
@@ -37,12 +37,4 @@ export class Cuillere extends ObjMobile {
     console.log('ARRETER CUILLERE');
     super.arreter();
   }
-
-  /**
-  *
-  * METHODES SPECIFIQUES A L'ANTAGONISTE
-  *
-  */
-
-  
 }

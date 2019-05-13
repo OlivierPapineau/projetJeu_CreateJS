@@ -8,8 +8,8 @@ export class EcranIntro extends ObjVisible {
     private pagePrecedent_lier = this.pagePrecedent.bind(this);
     private commencerJeu_lier = this.commencerJeu.bind(this);
 
-    public constructor(refScene:createjs.Stage, posX:number, posY:number, refJeu:Jeu) {
-        super(refScene, posX, posY);
+    public constructor(refScene:createjs.Stage, posX:number, posY:number, refJeu:Jeu, redimMax:number) {
+        super(refScene, posX, posY, redimMax);
 
         this.refJeu = refJeu;
 

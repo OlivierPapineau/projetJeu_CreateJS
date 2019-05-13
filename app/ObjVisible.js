@@ -16,21 +16,31 @@ define(["require", "exports"], function (require, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var ObjVisible = /** @class */ (function (_super) {
         __extends(ObjVisible, _super);
-        function ObjVisible(refScene, posX, posY) {
+        function ObjVisible(refScene, posX, posY, uneRedimMax) {
             var _this = _super.call(this) || this;
             _this.scene = null;
+            _this.redimMax = 0;
             _this.dessiner();
             _this.scene = refScene;
             _this.gotoAndStop(0);
             refScene.addChild(_this);
             _this.x = posX;
             _this.y = posY;
+            _this.redimMax = uneRedimMax;
+            if (_this.redimMax != -1) {
+                _this.redimensionner();
+            }
             return _this;
         }
         /**
          * Fonction retournerMonClip
          * @return retourne l'objet
          */
+        ObjVisible.prototype.redimensionner = function () {
+            var facteurRedim = this.redimMax * (this.y / window.lib.properties.height);
+            this.scaleX = facteurRedim;
+            this.scaleY = facteurRedim;
+        };
         ObjVisible.prototype.retournerMonClip = function () {
             return this;
         };

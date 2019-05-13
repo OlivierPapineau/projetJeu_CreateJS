@@ -16,8 +16,8 @@ define(["require", "exports", "./ObjMobile"], function (require, exports, ObjMob
     Object.defineProperty(exports, "__esModule", { value: true });
     var Assiette = /** @class */ (function (_super) {
         __extends(Assiette, _super);
-        function Assiette(refScene, posX, posY, vitesse) {
-            return _super.call(this, refScene, posX, posY, vitesse) || this;
+        function Assiette(refScene, posX, posY, vitesse, redimMax) {
+            return _super.call(this, refScene, posX, posY, vitesse, redimMax) || this;
         }
         Assiette.prototype.dessiner = function () {
             window.lib.clipAssiette.call(this);

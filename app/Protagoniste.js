@@ -19,8 +19,8 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
         //private tAssiettes = null;
         //private tCuilleres = null;
         //private refVies = null;
-        function Protagoniste(refScene, posX, posY, tCuilleres, tAssiettes, jeu, gui) {
-            var _this = _super.call(this, refScene, posX, posY) || this;
+        function Protagoniste(refScene, posX, posY, tCuilleres, tAssiettes, jeu, gui, uneRedimMax) {
+            var _this = _super.call(this, refScene, posX, posY, uneRedimMax) || this;
             _this.nombreVies = 3;
             _this.nombrePointsVies = 3;
             _this.invincible = false;
@@ -227,6 +227,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
                     this.y = this.y + 4;
                 }
             }
+            _super.prototype.redimensionner.call(this);
         };
         Protagoniste.prototype.arreterProtagoniste = function () {
             window.clearInterval(1000 / 5);

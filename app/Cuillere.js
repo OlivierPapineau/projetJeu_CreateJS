@@ -16,8 +16,8 @@ define(["require", "exports", "./ObjMobile"], function (require, exports, ObjMob
     Object.defineProperty(exports, "__esModule", { value: true });
     var Cuillere = /** @class */ (function (_super) {
         __extends(Cuillere, _super);
-        function Cuillere(refScene, posX, posY, vitesse, jeu) {
-            var _this = _super.call(this, refScene, posX, posY, vitesse) || this;
+        function Cuillere(refScene, posX, posY, vitesse, jeu, redimMax) {
+            var _this = _super.call(this, refScene, posX, posY, vitesse, redimMax) || this;
             _this.ref_Jeu = null;
             _this.ref_Jeu = jeu;
             _this.gotoAndPlay('marche');

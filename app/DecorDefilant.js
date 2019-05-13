@@ -16,8 +16,8 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
     Object.defineProperty(exports, "__esModule", { value: true });
     var DecorDefilant = /** @class */ (function (_super) {
         __extends(DecorDefilant, _super);
-        function DecorDefilant(refScene, posX, posY, vitesse, refJeu, niveau) {
-            var _this = _super.call(this, refScene, posX, posY) || this;
+        function DecorDefilant(refScene, posX, posY, vitesse, refJeu, niveau, redimMax) {
+            var _this = _super.call(this, refScene, posX, posY, redimMax) || this;
             _this.vitesse = null;
             _this.sens = -1;
             _this.avancer_lier = _this.avancer.bind(_this);
