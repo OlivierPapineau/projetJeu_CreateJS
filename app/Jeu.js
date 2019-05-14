@@ -157,14 +157,14 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
         /*************************************************************/
         Jeu.prototype.gererNiveaux = function (score) {
             if (this.intNiveau == 1) {
-                if (score == 2000) {
+                if (score == 300) {
                     this.arreter();
                     this.intNiveau = 2;
                     this.montrerNiveau();
                     window.setTimeout(this.demarrer.bind(this), 3000);
                 }
             }
-            if (this.intNiveau == 2) {
+            if (this.intNiveau == 600) {
                 if (score == 3000) {
                     this.arreter();
                     this.ecranRetroaction = new EcranRetro_1.EcranRetro(this.refScene, 0, 0, this, 'victoire');

@@ -221,7 +221,7 @@ export class Jeu {
   /*************************************************************/
   public gererNiveaux(score:number):void {
     if(this.intNiveau == 1) {
-      if(score == 2000) {
+      if(score == 300) {
         this.arreter();
 
         this.intNiveau = 2;
@@ -230,7 +230,7 @@ export class Jeu {
         window.setTimeout(this.demarrer.bind(this), 3000);
       }
     }
-    if(this.intNiveau == 2) {
+    if(this.intNiveau == 600) {
       if(score == 3000) {
         this.arreter();
         this.ecranRetroaction = new EcranRetro(this.refScene, 0, 0, this, 'victoire');
