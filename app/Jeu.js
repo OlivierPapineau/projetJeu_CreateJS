@@ -1,4 +1,4 @@
-define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./DecorFixe", "./DecorDefilant", "./Projectile", "./Afficheur", "./EcranNiveau", "./EcranIntro", "./EcranRetro"], function (require, exports, Protagoniste_1, Assiette_1, Cuillere_1, DecorFixe_1, DecorDefilant_1, Projectile_1, Afficheur_1, EcranNiveau_1, EcranIntro_1, EcranRetro_1) {
+define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./DecorFixe", "./DecorDefilant", "./Projectile", "./Afficheur", "./EcranNiveau", "./EcranIntro", "./EcranRetro", "./ProjectileSpecial"], function (require, exports, Protagoniste_1, Assiette_1, Cuillere_1, DecorFixe_1, DecorDefilant_1, Projectile_1, Afficheur_1, EcranNiveau_1, EcranIntro_1, EcranRetro_1, ProjectileSpecial_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Jeu = /** @class */ (function () {
@@ -29,6 +29,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             this.vitesseProjectile = 7;
             this.munitionMoutarde = null;
             this.tProjectiles = [];
+            this.tProjectilesSpeciaux = [];
             //Gestion du protagoniste
             this.protagoniste = null;
             this.refScene = refScene;
@@ -145,6 +146,9 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
         Jeu.prototype.creerProjectile = function (posX, posY) {
             this.tProjectiles.push(new Projectile_1.Projectile(this.refScene, posX, posY, this.vitesseProjectile, this, this.tCuilleres, 1));
         };
+        Jeu.prototype.creerProjectileSpecial = function (posX, posY) {
+            this.tProjectilesSpeciaux.push(new ProjectileSpecial_1.ProjectileSpecial(this.refScene, posX, posY, this.vitesseProjectile, this, this.tCuilleres, 1));
+        };
         //Gestion des scores
         Jeu.prototype.gererScore = function (iScore) {
             //console.log('incrementation du score');
@@ -155,7 +159,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
         /*************************************************************/
         Jeu.prototype.gererNiveaux = function (score) {
             if (this.intNiveau == 1) {
-                if (score == 2000) {
+                if (score >= 1000) {
                     this.arreter();
                     this.intNiveau = 2;
                     this.montrerNiveau();
@@ -163,7 +167,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
                 }
             }
             if (this.intNiveau == 2) {
-                if (score == 3000) {
+                if (score >= 2000) {
                     this.arreter();
                     this.ecranRetroaction = new EcranRetro_1.EcranRetro(this.refScene, 0, 0, this, 'victoire');
                 }

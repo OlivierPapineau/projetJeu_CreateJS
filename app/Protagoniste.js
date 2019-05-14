@@ -16,9 +16,6 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
     Object.defineProperty(exports, "__esModule", { value: true });
     var Protagoniste = /** @class */ (function (_super) {
         __extends(Protagoniste, _super);
-        //private tAssiettes = null;
-        //private tCuilleres = null;
-        //private refVies = null;
         function Protagoniste(refScene, posX, posY, tCuilleres, tAssiettes, jeu, gui, uneRedimMax) {
             var _this = _super.call(this, refScene, posX, posY, uneRedimMax) || this;
             _this.nombreVies = 3;
@@ -35,6 +32,10 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             _this.tTouches = null;
             _this.tCuilleres = [];
             _this.tAssiettes = [];
+            //private tAssiettes = null;
+            //private tCuilleres = null;
+            //private refVies = null;
+            _this.projectileUtilise = false;
             //Animations
             _this.gotoAndPlay('marche');
             //Attribution de pointeurs
@@ -133,6 +134,11 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             this.gotoAndPlay('tir');
             this.refJeu.creerProjectile(this.x, this.y - 80);
         };
+        Protagoniste.prototype.tirerProjectileSpecial = function () {
+            console.log('MUNITION SPECIALE');
+            this.gotoAndPlay('tir');
+            this.refJeu.creerProjectileSpecial(this.x, this.y - 80);
+        };
         /*************************************************************/
         //GESTION DU CLAVIER
         /*************************************************************/
@@ -170,7 +176,23 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
                     //Creation d'un nouveau projectile
                     this.tirerProjectile();
                     break;
+                case 82:
+                    //Creation de la munition speciale
+                    if (!this.projectileUtilise) {
+                        this.tirerProjectileSpecial();
+                    }
+                    this.projectileUtilise = true;
+                    this.attendreProchainProjectile();
+                    break;
             }
+        };
+        Protagoniste.prototype.attendreProchainProjectile = function () {
+            this.refAfficheur.changerEtat(this.projectileUtilise);
+            window.setTimeout(this.prochainProjectilePret.bind(this), 5000);
+        };
+        Protagoniste.prototype.prochainProjectilePret = function () {
+            this.projectileUtilise = false;
+            this.refAfficheur.changerEtat(this.projectileUtilise);
         };
         Protagoniste.prototype.gererToucheUp = function (e) {
             switch (e.keyCode) {

@@ -8,6 +8,7 @@ import {Afficheur} from './Afficheur';
 import {EcranNiveau} from './EcranNiveau';
 import {EcranIntro} from './EcranIntro';
 import {EcranRetro} from './EcranRetro';
+import { ProjectileSpecial } from './ProjectileSpecial';
 
 export class Jeu {
 
@@ -43,6 +44,7 @@ export class Jeu {
   private vitesseProjectile = 7;
   private munitionMoutarde = null;
   private tProjectiles = [];
+  private tProjectilesSpeciaux = [];
 
   //Gestion du protagoniste
   private protagoniste = null;
@@ -205,6 +207,10 @@ export class Jeu {
     this.tProjectiles.push(new Projectile(this.refScene, posX, posY, this.vitesseProjectile, this, this.tCuilleres, 1));
   }
 
+  public creerProjectileSpecial(posX:number, posY:number) {
+    this.tProjectilesSpeciaux.push(new ProjectileSpecial(this.refScene, posX, posY, this.vitesseProjectile, this, this.tCuilleres, 1));
+  }
+
 
   //Gestion des scores
   public gererScore(iScore:number):void {
@@ -218,7 +224,7 @@ export class Jeu {
   /*************************************************************/
   public gererNiveaux(score:number):void {
     if(this.intNiveau == 1) {
-      if(score == 2000) {
+      if(score >= 1000) {
         this.arreter();
 
         this.intNiveau = 2;
@@ -228,7 +234,7 @@ export class Jeu {
       }
     }
     if(this.intNiveau == 2) {
-      if(score == 3000) {
+      if(score >= 2000) {
         this.arreter();
         this.ecranRetroaction = new EcranRetro(this.refScene, 0, 0, this, 'victoire');
       }

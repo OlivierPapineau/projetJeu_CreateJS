@@ -33,6 +33,8 @@ export class Protagoniste extends ObjVisible {
   //private tCuilleres = null;
   //private refVies = null;
 
+  private projectileUtilise = false;
+
   public constructor(refScene:createjs.Stage, posX:number, posY:number, tCuilleres:Array<Cuillere>, tAssiettes:Array<Assiette>, jeu:Jeu, gui:Afficheur, uneRedimMax:number) {
     super(refScene, posX, posY, uneRedimMax);
 
@@ -159,6 +161,12 @@ export class Protagoniste extends ObjVisible {
     this.refJeu.creerProjectile(this.x, this.y - 80);
   }
 
+  private tirerProjectileSpecial() {
+    console.log('MUNITION SPECIALE');
+    this.gotoAndPlay('tir');
+    this.refJeu.creerProjectileSpecial(this.x, this.y - 80);
+  }
+
 
 
 
@@ -202,7 +210,25 @@ export class Protagoniste extends ObjVisible {
         //Creation d'un nouveau projectile
         this.tirerProjectile();
         break;
+      case 82 :
+        //Creation de la munition speciale
+        if(!this.projectileUtilise) {
+          this.tirerProjectileSpecial();
+        }
+        this.projectileUtilise = true;
+        this.attendreProchainProjectile();
+        break;
     }
+  }
+
+  private attendreProchainProjectile():void {
+    this.refAfficheur.changerEtat(this.projectileUtilise);
+    window.setTimeout(this.prochainProjectilePret.bind(this), 5000);
+  }
+
+  private prochainProjectilePret():void {
+    this.projectileUtilise = false;
+    this.refAfficheur.changerEtat(this.projectileUtilise);
   }
 
   private gererToucheUp(e:KeyboardEvent):void {

@@ -34,6 +34,15 @@ export class Afficheur extends ObjVisible {
         this.refJeu.gererNiveaux(this.score);
     }
 
+    public changerEtat(etat:boolean):void {
+        if(etat) {
+            this.gotoAndStop('munition_utilisee');
+        }
+        else if(!etat) {
+            this.gotoAndStop('normal');
+        }
+    }
+
     public reset():void {
         super.arreter();
     }

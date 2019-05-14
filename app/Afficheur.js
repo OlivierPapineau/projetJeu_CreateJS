@@ -37,6 +37,14 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             console.log("score: " + this.score);
             this.refJeu.gererNiveaux(this.score);
         };
+        Afficheur.prototype.changerEtat = function (etat) {
+            if (etat) {
+                this.gotoAndStop('munition_utilisee');
+            }
+            else if (!etat) {
+                this.gotoAndStop('normal');
+            }
+        };
         Afficheur.prototype.reset = function () {
             _super.prototype.arreter.call(this);
         };

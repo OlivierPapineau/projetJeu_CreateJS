@@ -4,10 +4,10 @@ import {ObjVisible} from './ObjVisible';
 
 export class Projectile extends ObjVisible {
 
-    private avancer_lier = this.avancer.bind(this);
-    private static vitesse = null;
-    private refJeu:Jeu = null;
-    private tCuilleres:Array<Cuillere> = [];
+    protected avancer_lier = this.avancer.bind(this);
+    protected static vitesse = null;
+    protected refJeu:Jeu = null;
+    protected tCuilleres:Array<Cuillere> = [];
 
     public constructor(refScene:createjs.Stage, posX:number, posY:number, vitesse:number, refJeu:Jeu, ref_tCuilleres:Array<Cuillere>, redimMax:number) {
         super(refScene, posX, posY, redimMax);
@@ -26,7 +26,7 @@ export class Projectile extends ObjVisible {
         this.frameBounds = window.lib.clipMunition.prototype.framebounds;
     }
 
-    private avancer():void {
+    protected avancer():void {
         if(this.x <= 800) {
             this.x += Projectile.vitesse;
             this.detecterCollision();
@@ -38,7 +38,7 @@ export class Projectile extends ObjVisible {
         }
     }
 
-    private detecterCollision() {
+    protected detecterCollision():void {
         console.log(`Bounds: ${this.getBounds()}`);
         const hitBox = this.getTransformedBounds();
         //console.log(hitBox);
