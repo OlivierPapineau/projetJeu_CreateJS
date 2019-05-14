@@ -1,4 +1,4 @@
-define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./DecorFixe", "./DecorDefilant", "./Projectile", "./Afficheur", "./EcranNiveau", "./EcranIntro", "./EcranRetro", "./ProjectileSpecial"], function (require, exports, Protagoniste_1, Assiette_1, Cuillere_1, DecorFixe_1, DecorDefilant_1, Projectile_1, Afficheur_1, EcranNiveau_1, EcranIntro_1, EcranRetro_1, ProjectileSpecial_1) {
+define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./DecorFixe", "./DecorDefilant", "./Projectile", "./Afficheur", "./EcranNiveau", "./EcranIntro", "./EcranRetro", "./ProjectileSpecial", "./Trame", "./SonFX"], function (require, exports, Protagoniste_1, Assiette_1, Cuillere_1, DecorFixe_1, DecorDefilant_1, Projectile_1, Afficheur_1, EcranNiveau_1, EcranIntro_1, EcranRetro_1, ProjectileSpecial_1, Trame_1, SonFX_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Jeu = /** @class */ (function () {
@@ -32,7 +32,17 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             this.tProjectilesSpeciaux = [];
             //Gestion du protagoniste
             this.protagoniste = null;
+            //Gestion des sons
+            this.tSons = [];
             this.refScene = refScene;
+            //Chargement des sons
+            this.tSons.push(new Trame_1.Trame('../sons/son_ambience.mp3', ['mp3'], '1', 1, -1));
+            this.tSons.push(new SonFX_1.SonFX('../sons/son_contact_projectile.mp3', ['mp3'], '2', 20));
+            this.tSons.push(new SonFX_1.SonFX('../sons/son_defaite.mp3', ['mp3'], '3', 20));
+            this.tSons.push(new SonFX_1.SonFX('../sons/son_finVie_antagoniste.mp3', ['mp3'], '4', 20));
+            this.tSons.push(new SonFX_1.SonFX('../sons/son_finVie_avatar.mp3', ['mp3'], '5', 20));
+            this.tSons.push(new SonFX_1.SonFX('../sons/son_tir_projectile.mp3', ['mp3'], '6', 20));
+            this.tSons.push(new SonFX_1.SonFX('../sons/son_victoire.mp3', ['mp3'], '7', 20));
             this.introduire();
             //this.demarrer();
         }
@@ -41,6 +51,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
         /*************************************************************/
         Jeu.prototype.demarrer = function () {
             this.estDemarre = true;
+            this.tSons[0].demarrerSon();
             //Gestion des tableaux
             this.tCuilleres = [];
             this.tAssiettes = [];
@@ -60,6 +71,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             if (this.refMinuterieAssiette === null) {
                 this.refMinuterieAssiette = window.setInterval(this.creerAssiette.bind(this), 1000 * 1.7);
             }
+            window.setInterval(this.gererProfondeur.bind(this), 1000 / 30);
         };
         Jeu.prototype.introduire = function () {
             this.ecranIntro = new EcranIntro_1.EcranIntro(this.refScene, 0, 0, this, -1);
@@ -169,18 +181,21 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             if (this.intNiveau == 2) {
                 if (score >= 2000) {
                     this.arreter();
+                    this.tSons[6].demarrerSon();
                     this.ecranRetroaction = new EcranRetro_1.EcranRetro(this.refScene, 0, 0, this, 'victoire');
                 }
             }
         };
         Jeu.prototype.perdrePartie = function () {
             this.ecranRetroaction = new EcranRetro_1.EcranRetro(this.refScene, 0, 0, this, 'defaite');
+            this.tSons[2].demarrerSon();
         };
         /*************************************************************/
         //DESTRUCTEUR
         /*************************************************************/
         Jeu.prototype.arreter = function () {
             this.estDemarre = false;
+            window.clearInterval();
             this.GUI.reset();
             this.GUI = null;
             this.refMinuterieAssiette = null;
@@ -200,6 +215,7 @@ define(["require", "exports", "./Protagoniste", "./Assiette", "./Cuillere", "./D
             this.tDecorDefilant = null;
             this.protagoniste.arreterProtagoniste();
             this.protagoniste = null;
+            this.tSons[0].arreterSon();
         };
         return Jeu;
     }());

@@ -27,6 +27,7 @@ export class Cuillere extends ObjMobile {
     
     this.ref_Jeu.detruireCuillere(this);
     window.setTimeout(this.arreter.bind(this), 1500);
+    window.setTimeout(this.ref_Jeu.tSons[3].demarrerSon(), 1500)
   }
 
   protected gererFinScene():void {

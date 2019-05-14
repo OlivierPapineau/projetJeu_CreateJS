@@ -59,6 +59,7 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
             }
         };
         Projectile.prototype.arreter = function () {
+            this.refJeu.tSons[1].demarrerSon();
             this.removeEventListener('tick', this.avancer_lier);
             _super.prototype.arreter.call(this);
         };

@@ -175,11 +175,13 @@ define(["require", "exports", "./ObjVisible"], function (require, exports, ObjVi
                 case 32:
                     //Creation d'un nouveau projectile
                     this.tirerProjectile();
+                    this.refJeu.tSons[5].demarrerSon();
                     break;
                 case 82:
                     //Creation de la munition speciale
                     if (!this.projectileUtilise) {
                         this.tirerProjectileSpecial();
+                        this.refJeu.tSons[5].demarrerSon();
                     }
                     this.projectileUtilise = true;
                     this.attendreProchainProjectile();

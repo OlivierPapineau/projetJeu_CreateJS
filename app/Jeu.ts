@@ -9,6 +9,8 @@ import {EcranNiveau} from './EcranNiveau';
 import {EcranIntro} from './EcranIntro';
 import {EcranRetro} from './EcranRetro';
 import { ProjectileSpecial } from './ProjectileSpecial';
+import { Trame } from './Trame';
+import { SonFX } from './SonFX';
 
 export class Jeu {
 
@@ -49,8 +51,21 @@ export class Jeu {
   //Gestion du protagoniste
   private protagoniste = null;
 
+  //Gestion des sons
+  public tSons = [];
+
   public constructor(refScene:createjs.Stage) {
     this.refScene = refScene;
+
+    //Chargement des sons
+    this.tSons.push(new Trame('../sons/son_ambience.mp3', ['mp3'], '1', 1, -1));
+    this.tSons.push(new SonFX('../sons/son_contact_projectile.mp3', ['mp3'], '2', 20));
+    this.tSons.push(new SonFX('../sons/son_defaite.mp3', ['mp3'], '3', 20));
+    this.tSons.push(new SonFX('../sons/son_finVie_antagoniste.mp3', ['mp3'], '4', 20));
+    this.tSons.push(new SonFX('../sons/son_finVie_avatar.mp3', ['mp3'], '5', 20));
+    this.tSons.push(new SonFX('../sons/son_tir_projectile.mp3', ['mp3'], '6', 20));
+    this.tSons.push(new SonFX('../sons/son_victoire.mp3', ['mp3'], '7', 20));
+
 
     this.introduire();
     //this.demarrer();
@@ -62,6 +77,8 @@ export class Jeu {
 
   public demarrer():void {
     this.estDemarre = true;
+
+    this.tSons[0].demarrerSon();
 
     //Gestion des tableaux
     this.tCuilleres = [];
@@ -88,6 +105,7 @@ export class Jeu {
       this.refMinuterieAssiette = window.setInterval(this.creerAssiette.bind(this), 1000*1.7);
     }
 
+    window.setInterval(this.gererProfondeur.bind(this), 1000/30);
 
   }
 
@@ -236,6 +254,7 @@ export class Jeu {
     if(this.intNiveau == 2) {
       if(score >= 2000) {
         this.arreter();
+        this.tSons[6].demarrerSon();
         this.ecranRetroaction = new EcranRetro(this.refScene, 0, 0, this, 'victoire');
       }
     }
@@ -243,6 +262,7 @@ export class Jeu {
 
   public perdrePartie():void {
     this.ecranRetroaction = new EcranRetro(this.refScene, 0, 0, this, 'defaite');
+    this.tSons[2].demarrerSon();
   }
 
 
@@ -252,6 +272,8 @@ export class Jeu {
 
   public arreter() {
     this.estDemarre = false;
+
+    window.clearInterval();
 
     this.GUI.reset();
     this.GUI = null;
@@ -277,6 +299,8 @@ export class Jeu {
 
     this.protagoniste.arreterProtagoniste();
     this.protagoniste = null;
+
+    this.tSons[0].arreterSon();
 
   }
 

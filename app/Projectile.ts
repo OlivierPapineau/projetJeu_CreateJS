@@ -58,6 +58,7 @@ export class Projectile extends ObjVisible {
     }
 
     public arreter():void {
+        this.refJeu.tSons[1].demarrerSon();
         this.removeEventListener('tick', this.avancer_lier);
         super.arreter();
     }

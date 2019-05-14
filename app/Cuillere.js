@@ -32,6 +32,7 @@ define(["require", "exports", "./ObjMobile"], function (require, exports, ObjMob
             window.clearInterval();
             this.ref_Jeu.detruireCuillere(this);
             window.setTimeout(this.arreter.bind(this), 1500);
+            window.setTimeout(this.ref_Jeu.tSons[3].demarrerSon(), 1500);
         };
         Cuillere.prototype.gererFinScene = function () {
             //super.arreter();
