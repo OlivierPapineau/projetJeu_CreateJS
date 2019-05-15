@@ -1,3 +1,10 @@
 #animation_container {
-    margin: 100px auto 0 auto;
+    margin-left: 321px;
+    margin-top: 150px;
+
+}
+
+html {
+    background-image: url('./images/background@1x.png');
+    background-repeat: no-repeat;
 }

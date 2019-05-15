@@ -1448,12 +1448,12 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/decor_fixe_level1.png?1557855572906", id:"decor_fixe_level1"},
-		{src:"images/decor_fixe_level2.png?1557855572906", id:"decor_fixe_level2"},
-		{src:"images/ecran_defaite.png?1557855572906", id:"ecran_defaite"},
-		{src:"images/ecran_tuto1.png?1557855572906", id:"ecran_tuto1"},
-		{src:"images/ecran_tuto2.png?1557855572906", id:"ecran_tuto2"},
-		{src:"images/ecran_victoire.png?1557855572906", id:"ecran_victoire"}
+		{src:"images/decor_fixe_level1.png?1557884990606", id:"decor_fixe_level1"},
+		{src:"images/decor_fixe_level2.png?1557884990606", id:"decor_fixe_level2"},
+		{src:"images/ecran_defaite.png?1557884990606", id:"ecran_defaite"},
+		{src:"images/ecran_tuto1.png?1557884990606", id:"ecran_tuto1"},
+		{src:"images/ecran_tuto2.png?1557884990606", id:"ecran_tuto2"},
+		{src:"images/ecran_victoire.png?1557884990606", id:"ecran_victoire"}
 	],
 	preloads: []
 };

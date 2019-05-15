@@ -58,13 +58,13 @@ export class Jeu {
     this.refScene = refScene;
 
     //Chargement des sons
-    this.tSons.push(new Trame('../sons/son_ambience.mp3', ['mp3'], '1', 1, -1));
-    this.tSons.push(new SonFX('../sons/son_contact_projectile.mp3', ['mp3'], '2', 20));
-    this.tSons.push(new SonFX('../sons/son_defaite.mp3', ['mp3'], '3', 20));
-    this.tSons.push(new SonFX('../sons/son_finVie_antagoniste.mp3', ['mp3'], '4', 20));
-    this.tSons.push(new SonFX('../sons/son_finVie_avatar.mp3', ['mp3'], '5', 20));
-    this.tSons.push(new SonFX('../sons/son_tir_projectile.mp3', ['mp3'], '6', 20));
-    this.tSons.push(new SonFX('../sons/son_victoire.mp3', ['mp3'], '7', 20));
+    this.tSons.push(new Trame('sons/son_ambience.mp3', ['mp3'], '1', 1, -1));
+    this.tSons.push(new SonFX('sons/son_contact_projectile.mp3', ['mp3'], '2', 20));
+    this.tSons.push(new SonFX('sons/son_defaite.mp3', ['mp3'], '3', 20));
+    this.tSons.push(new SonFX('sons/son_finVie_antagoniste.mp3', ['mp3'], '4', 20));
+    this.tSons.push(new SonFX('sons/son_finVie_avatar.mp3', ['mp3'], '5', 20));
+    this.tSons.push(new SonFX('sons/son_tir_projectile.mp3', ['mp3'], '6', 20));
+    this.tSons.push(new SonFX('sons/son_victoire.mp3', ['mp3'], '7', 20));
 
 
     this.introduire();
